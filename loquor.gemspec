@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Loquor::VERSION
   spec.authors       = ["Jeremy Walker"]
   spec.email         = ["jez.walker@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
-  spec.homepage      = ""
+  spec.description   = "An API dispatcher for Meducation"
+  spec.summary       = "This library dispatches requests to Meducation"
+  spec.homepage      = "https://www.meducation.net"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
@@ -18,6 +18,12 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
+  spec.add_dependency 'filum', '0.0.1'
+  spec.add_dependency 'rest-client', '1.6.7'
+  spec.add_dependency "api-auth", "1.0.3"
+
   spec.add_development_dependency "bundler", "~> 1.3"
+  spec.add_development_dependency "minitest", '~> 5.0.8'
+  spec.add_development_dependency "mocha"
   spec.add_development_dependency "rake"
 end

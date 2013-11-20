@@ -1,6 +1,6 @@
 # Loquor
 
-TODO: Write a gem description
+Handles calls to the Meducation API
 
 ## Installation
 
