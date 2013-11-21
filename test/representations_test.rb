@@ -10,6 +10,10 @@ module Loquor
       define_method "test_#{klass}_set_up_correctly" do
         assert Loquor.const_defined?(klass)
       end
+
+      define_method "test_#{klass}_stores_path_up_correctly" do
+        assert_equal path, Loquor.const_get(klass).path
+      end
     end
   end
 end

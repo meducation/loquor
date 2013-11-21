@@ -1,7 +1,7 @@
 require File.expand_path('../../test_helper', __FILE__)
 
 module Loquor
-  class HttpAction::PostTest < Minitest::Test
+  class HttpAction::PostTest < HttpAction::Test
     def test_post_should_call_new
       url = "foobar"
       payload = {y: false}
@@ -26,10 +26,7 @@ module Loquor
     def test_request_is_generated_correctly
       url = "/foobar"
       payload = {foo: true, bar: false}
-      endpoint = "http://thefoobar.com"
-      config = mock(endpoint: endpoint)
-      full_url = "#{endpoint}#{url}"
-      deps = {config: config}
+      full_url = "#{@endpoint}#{url}"
 
       RestClient::Request.expects(:new).with(
         url: full_url,
@@ -42,15 +39,10 @@ module Loquor
     end
 
     def test_request_is_signed_correctly
-      access_id = "foobar1"
-      secret_key = "foobar2"
-      config = mock(access_id: access_id, secret_key: secret_key)
-      deps = {config: config}
-
       posts = HttpAction::Post.new("", {}, deps)
       request = RestClient::Request.new(url: "http://localhost:3000", method: :post)
       posts.expects(request: request)
-      ApiAuth.expects(:sign!).with(request, access_id, secret_key)
+      ApiAuth.expects(:sign!).with(request, @access_id, @secret_key)
       posts.send(:signed_request)
     end
 

@@ -3,9 +3,11 @@ Loquor::Representations.each do |name, path|
     extend Loquor::Representation::ClassMethods
     include Loquor::Representation::InstanceMethods
 
-    define_method :path do
-      path
-    end
+    instance_eval <<-EOS
+      def path
+        "#{path}"
+      end
+    EOS
   end
 
   # Split off the Group and Discussion parts
