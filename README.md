@@ -10,15 +10,13 @@ Handles calls to the Meducation API via an ActiveRecord-style interface
 
 Add this line to your application's Gemfile:
 
-    gem 'loquor'
+```ruby
+gem 'loquor'
+```
 
 And then execute:
 
     $ bundle
-
-Or install it yourself as:
-
-    $ gem install loquor
 
 
 ## Usage
@@ -32,7 +30,7 @@ Loquor.config do |config|
 end
 ```
 
-Now you make requests to get, create, update, destroy and list a range of objects, like this:
+Now you can make requests to get, create, update, destroy and list a range of objects, like this:
 
 ```ruby
 User.where(email: "jeremy@meducation.net").where(name: "Jeremy").each do |user|
