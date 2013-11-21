@@ -7,12 +7,19 @@ require "loquor/configuration"
 require "loquor/client"
 require 'loquor/path_builder'
 require 'loquor/representation'
-require 'loquor/representations'
 
 require 'loquor/api_call'
 require "loquor/http_action"
 
 module Loquor
+
+  Representations = {
+    "Group::Discussion"     => "/group/:group_id/discussions",
+    "Group::DiscussionPost" => "/group/:group_id/discussion",
+    "MediaFile"             => "/media_files",
+    "User"                  => "/users"
+  }
+
   def self.config
     if block_given?
       yield loquor.config
@@ -35,3 +42,5 @@ module Loquor
     @loquor ||= Client.new
   end
 end
+
+require 'loquor/representations'

@@ -1,7 +1,6 @@
 module Loquor
   module Representation
     module ClassMethods
-
       [:find, :where].each do |proxy|
         define_method proxy do |*args|
           new.send proxy, *args

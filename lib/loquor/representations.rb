@@ -1,9 +1,4 @@
-{
-  "Group::Discussion"     => "/group/:group_id/discussions",
-  "Group::DiscussionPost" => "/group/:group_id/discussion",
-  "MediaFile"             => "/media_files",
-  "User"                  => "/users"
-}.each do |name, path|
+Loquor::Representations.each do |name, path|
   klass = Class.new(Object) do
     extend Loquor::Representation::ClassMethods
     include Loquor::Representation::InstanceMethods
