@@ -36,12 +36,12 @@ Now you make requests to get, create, update, destroy and list a range of object
 
 ```ruby
 User.where(email: "jeremy@meducation.net").where(name: "Jeremy").each do |user|
-  p "The user with id ##{user['id']} is #{user['name']}.
+  p "The user with id ##{user['id']} is #{user['name']}."
 end
 
 User.find(2) # => {id: 2, name: "Jeremy Walker"}
 
-User.create(name: "Jeremy Walker", email: "jeremy@meducation.net)
+User.create(name: "Jeremy Walker", email: "jeremy@meducation.net) # => {id: 2, name: "Jeremy Walker", email "jeremy@meducation.net"}
 ```
 
 ### Supported Objects
