@@ -1,4 +1,4 @@
-# Loquor
+# Loquor - Meducation API Dispatcher
 
 [![Build Status](https://travis-ci.org/meducation/loquor.png)](https://travis-ci.org/meducation/loquor)
 [![Dependencies](https://gemnasium.com/meducation/loquor.png?travis)](https://gemnasium.com/meducation/loquor)
@@ -33,13 +33,13 @@ end
 Now you can make requests to get, create, update, destroy and list a range of objects, like this:
 
 ```ruby
-User.where(email: "jeremy@meducation.net").where(name: "Jeremy").each do |user|
+Loquor::User.where(email: "jeremy@meducation.net").where(name: "Jeremy").each do |user|
   p "The user with id ##{user['id']} is #{user['name']}."
 end
 
-User.find(2) # => {id: 2, name: "Jeremy Walker"}
+Loquor::User.find(2) # => {id: 2, name: "Jeremy Walker"}
 
-User.create(name: "Jeremy Walker", email: "jeremy@meducation.net") # => {id: 2, name: "Jeremy Walker", email "jeremy@meducation.net"}
+Loquor::User.create(name: "Jeremy Walker", email: "jeremy@meducation.net") # => {id: 2, name: "Jeremy Walker", email "jeremy@meducation.net"}
 ```
 
 ### Supported Objects
