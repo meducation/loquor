@@ -5,7 +5,6 @@ require 'filum'
 require "loquor/version"
 require "loquor/configuration"
 require "loquor/client"
-require 'loquor/path_builder'
 require 'loquor/representation'
 
 require 'loquor/api_call'

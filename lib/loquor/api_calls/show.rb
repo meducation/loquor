@@ -7,7 +7,7 @@ module Loquor
     end
 
     def execute
-      Loquor.get("#{build_path}/#{@id}")
+      Loquor.get("#{@path}/#{@id}")
     end
   end
 end

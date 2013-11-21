@@ -40,7 +40,7 @@ module Loquor
           raise LoquorError.new("Filter values must be strings or arrays.")
         end
       }.join("&")
-      "#{build_path}?#{query_string}"
+      "#{@path}?#{query_string}"
     end
   end
 end

@@ -1,8 +1,7 @@
 module Loquor
   class ApiCall
-    include Loquor::PathBuilder
     def initialize(path)
-      setup_path_builder(path)
+      @path = path
     end
   end
 end
