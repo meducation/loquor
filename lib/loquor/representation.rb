@@ -1,9 +1,9 @@
 module Loquor
   module Representation
     module ClassMethods
-      [:find, :where, :create].each do |proxy|
-        define_method proxy do |*args|
-          new.send proxy, *args
+      [:find, :find_each, :where, :create].each do |proxy|
+        define_method proxy do |*args, &block|
+          new.send proxy, *args, &block
         end
       end
     end
@@ -11,6 +11,10 @@ module Loquor
     module InstanceMethods
       def find(id)
         ApiCall::Show.new(self.class.path, id).execute
+      end
+
+      def find_each(&block)
+        ApiCall::Index.new(self.class.path).find_each(&block)
       end
 
       def where(*args)

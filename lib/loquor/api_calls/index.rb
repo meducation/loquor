@@ -21,6 +21,18 @@ module Loquor
       results.send(name, *args, &block)
     end
 
+    def find_each
+      page = 1
+      results = []
+      begin
+        results = Loquor.get("#{generate_url}&page=#{page}&per=#{per}")
+        results.each do |result|
+          yield result
+        end
+        page += 1
+      end while(results.size == per)
+    end
+
     private
 
     def results

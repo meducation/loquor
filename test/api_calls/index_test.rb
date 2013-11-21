@@ -68,5 +68,30 @@ module Loquor
       searcher.to_a
       assert Array, searcher.instance_variable_get("@results").class
     end
+
+    def test_find_each_calls_block_for_each_item
+      searcher = ApiCall::Index.new('')
+      Loquor.expects(:get).returns([{'id' => 8}, {'id' => 10}])
+
+      ids = []
+      searcher.find_each do |json|
+        ids << json['id']
+      end
+      assert_equal [8,10], ids
+    end
+
+    def test_find_each_limits_to_200
+      searcher = ApiCall::Index.new('http://foobar.com')
+      Loquor.expects(:get).with("http://foobar.com?&page=1&per=200").returns([])
+      searcher.find_each {}
+    end
+
+    def test_find_each_runs_multiple_times
+      searcher = ApiCall::Index.new('http://foobar.com')
+      results = 200.times.map{""}
+      Loquor.expects(:get).with("http://foobar.com?&page=1&per=200").returns(results)
+      Loquor.expects(:get).with("http://foobar.com?&page=2&per=200").returns([])
+      searcher.find_each {}
+    end
   end
 end

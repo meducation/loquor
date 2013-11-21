@@ -5,8 +5,8 @@ module Loquor
 
     {
       MediaFile: "/media_files",
-      User: "/users"
-      GroupDiscussion: "/group_discussions"
+      User: "/users",
+      GroupDiscussion: "/group_discussions",
       GroupDiscussionPost: "/group_discussion_posts"
     }.each do |klass, path|
       define_method "test_#{klass}_set_up_correctly" do

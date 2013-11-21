@@ -18,7 +18,7 @@ module Loquor
     def test_post_parses_request
       output = {'foo' => 'bar'}
       json = output.to_json
-      posts = HttpAction::Post.new("", {}, {})
+      posts = HttpAction::Post.new("", {}, deps)
       posts.expects(signed_request: mock(execute: json))
       assert_equal output, posts.post
     end
