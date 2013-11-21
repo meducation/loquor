@@ -8,7 +8,6 @@ module Loquor
     def signed_request
       @config.logger.info "Signing request."
       ApiAuth.sign!(request, @config.access_id, @config.secret_key)
-      @config.logger.info "Signed request."
     end
   end
 end

@@ -22,4 +22,3 @@ module Loquor
     end
   end
 end
-

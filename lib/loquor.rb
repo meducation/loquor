@@ -13,10 +13,10 @@ require "loquor/http_action"
 module Loquor
 
   Representations = {
-    "Group::Discussion"     => "/group/:group_id/discussions",
-    "Group::DiscussionPost" => "/group/:group_id/discussion",
-    "MediaFile"             => "/media_files",
-    "User"                  => "/users"
+    "GroupDiscussion"     => "/group_discussions",
+    "GroupDiscussionPost" => "/group_discussion_posts",
+    "MediaFile"           => "/media_files",
+    "User"                => "/users"
   }
 
   def self.config

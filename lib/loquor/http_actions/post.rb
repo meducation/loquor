@@ -10,7 +10,10 @@ module Loquor
     end
 
     def post
-      JSON.parse(signed_request.execute)
+      @config.logger.info "Making POST request to: #{@url}"
+      response = JSON.parse(signed_request.execute)
+      @config.logger.info "Signed request executed. Response: #{response}"
+      response
     end
 
     private
