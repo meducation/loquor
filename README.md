@@ -41,7 +41,7 @@ end
 
 User.find(2) # => {id: 2, name: "Jeremy Walker"}
 
-User.create(name: "Jeremy Walker", email: "jeremy@meducation.net) # => {id: 2, name: "Jeremy Walker", email "jeremy@meducation.net"}
+User.create(name: "Jeremy Walker", email: "jeremy@meducation.net") # => {id: 2, name: "Jeremy Walker", email "jeremy@meducation.net"}
 ```
 
 ### Supported Objects
