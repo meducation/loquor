@@ -11,7 +11,7 @@ Handles calls to the Meducation API via an ActiveRecord-style interface
 Add this line to your application's Gemfile:
 
 ```ruby
-    gem 'loquor'
+gem 'loquor'
 ```
 
 And then execute:
