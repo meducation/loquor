@@ -37,7 +37,7 @@ module Loquor
         elsif value.is_a?(Array)
           "#{key}=[#{URI.encode(value.join(","))}]"
         else
-          raise InquisitioError.new("Filter values must be strings or arrays.")
+          raise LoquorError.new("Filter values must be strings or arrays.")
         end
       }.join("&")
       "#{build_path}?#{query_string}"

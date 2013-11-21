@@ -1,6 +1,6 @@
 module Loquor
 
-  class MissingUrlComponentError < StandardError
+  class MissingUrlComponentError < LoquorError
     def initialize(url_component)
       @url_component = url_component
     end

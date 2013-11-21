@@ -1,5 +1,7 @@
 module Loquor
-  class LoquorConfigurationError < StandardError
+  class LoquorError < StandardError
+  end
+  class LoquorConfigurationError < LoquorError
   end
 
   class Configuration
