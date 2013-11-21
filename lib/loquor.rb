@@ -5,8 +5,12 @@ require 'filum'
 require "loquor/version"
 require "loquor/configuration"
 require "loquor/client"
-require "loquor/gets"
-require "loquor/posts"
+require 'loquor/path_builder'
+require 'loquor/representation'
+require 'loquor/representations'
+
+require 'loquor/api_call'
+require "loquor/http_action"
 
 module Loquor
   def self.config

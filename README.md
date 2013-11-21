@@ -4,7 +4,7 @@
 [![Dependencies](https://gemnasium.com/meducation/loquor.png?travis)](https://gemnasium.com/meducation/loquor)
 [![Code Climate](https://codeclimate.com/github/meducation/loquor.png)](https://codeclimate.com/github/meducation/loquor)
 
-Handles calls to the Meducation API.
+Handles calls to the Meducation API via an ActiveRecord-style interface
 
 ## Installation
 
@@ -20,6 +20,37 @@ Or install it yourself as:
 
     $ gem install loquor
 
+
+## Usage
+
+You will want to set up some configuration variables.
+``` ruby
+Loquor.config do |config|
+  config.access_id  = "Username"
+  config.secret_key = "SecretKey1929292"
+  config.endpoint   = "http://www.meducation.net"
+end
+```
+
+Now you make requests to get, create, update, destroy and list a range of objects, like this:
+
+```ruby
+User.where(email: "jeremy@meducation.net").where(name: "Jeremy").each do |user|
+  p "The user with id ##{user['id']} is #{user['name']}.
+end
+
+User.find(2) # => {id: 2, name: "Jeremy Walker"}
+
+User.create(name: "Jeremy Walker", email: "jeremy@meducation.net)
+```
+
+### Supported Objects
+
+The following are currently endpoints are supported:
+* Group Discussions
+* Group Discussion Posts
+* Media Files
+* Users
 
 ### Is it any good?
 

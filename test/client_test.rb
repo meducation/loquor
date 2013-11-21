@@ -12,7 +12,7 @@ module Loquor
 
       client = Client.new
       deps = {config: client.config}
-      Gets.expects(:get).with(url, deps)
+      HttpAction::Get.expects(:get).with(url, deps)
       client.get(url)
     end
 
@@ -22,7 +22,7 @@ module Loquor
 
       client = Client.new
       deps = {config: client.config}
-      Posts.expects(:post).with(url, payload, deps)
+      HttpAction::Post.expects(:post).with(url, payload, deps)
       client.post(url, payload)
     end
   end

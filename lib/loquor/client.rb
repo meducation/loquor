@@ -8,12 +8,12 @@ module Loquor
 
     def get(url)
       deps = {config: @config}
-      Loquor::Gets.get(url, deps)
+      HttpAction::Get.get(url, deps)
     end
 
     def post(url, payload)
       deps = {config: @config}
-      Loquor::Posts.post(url, payload, deps)
+      HttpAction::Post.post(url, payload, deps)
     end
   end
 end

@@ -1,13 +1,12 @@
 module Loquor
-  class Posts
+  class HttpAction::Post < HttpAction
     def self.post(url, payload, deps)
       new(url, payload, deps).post
     end
 
     def initialize(url, payload, deps)
-      @url = url
+      super(url, deps)
       @payload = payload
-      @config = deps[:config]
     end
 
     def post
@@ -17,7 +16,7 @@ module Loquor
     private
 
     def signed_request
-      signed_request = ApiAuth.sign!(request, @config.access_id, @config.secret_key)
+      signed_request = super
       p signed_request # If you take this line out - it all breaks. Yeah...
       signed_request
     end

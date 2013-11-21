@@ -1,24 +1,24 @@
-require File.expand_path('../test_helper', __FILE__)
+require File.expand_path('../../test_helper', __FILE__)
 
 module Loquor
-  class PostsTest < Minitest::Test
+  class HttpAction::PostTest < Minitest::Test
     def test_post_should_call_new
       url = "foobar"
       payload = {y: false}
       deps = {x: true}
-      Posts.expects(:new).with(url, payload, deps).returns(mock(post: nil))
-      Posts.post(url, payload, deps)
+      HttpAction::Post.expects(:new).with(url, payload, deps).returns(mock(post: nil))
+      HttpAction::Post.post(url, payload, deps)
     end
 
     def test_post_should_call_post
-      Posts.any_instance.expects(:post)
-      Posts.post("foobar", {}, {})
+      HttpAction::Post.any_instance.expects(:post)
+      HttpAction::Post.post("foobar", {}, {})
     end
 
     def test_post_parses_request
       output = {'foo' => 'bar'}
       json = output.to_json
-      posts = Posts.new("", {}, {})
+      posts = HttpAction::Post.new("", {}, {})
       posts.expects(signed_request: mock(execute: json))
       assert_equal output, posts.post
     end
@@ -38,7 +38,7 @@ module Loquor
         headers: {'Content-type' => 'application/json'},
         method: :post
       )
-      Posts.new(url, payload, deps).send(:request)
+      HttpAction::Post.new(url, payload, deps).send(:request)
     end
 
     def test_request_is_signed_correctly
@@ -47,7 +47,7 @@ module Loquor
       config = mock(access_id: access_id, secret_key: secret_key)
       deps = {config: config}
 
-      posts = Posts.new("", {}, deps)
+      posts = HttpAction::Post.new("", {}, deps)
       request = RestClient::Request.new(url: "http://localhost:3000", method: :post)
       posts.expects(request: request)
       ApiAuth.expects(:sign!).with(request, access_id, secret_key)
