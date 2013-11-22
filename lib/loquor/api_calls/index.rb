@@ -28,7 +28,7 @@ module Loquor
       begin
         results = Loquor.get("#{generate_url}&page=#{page}&per=#{per}")
         results.each do |result|
-          yield result
+          yield Representation.new(result)
         end
         page += 1
       end while(results.size == per)
@@ -38,7 +38,7 @@ module Loquor
 
     def results
       if @results.nil?
-        @results = Loquor.get(generate_url)
+        @results = Loquor.get(generate_url).map {|obj| Representation.new(obj)}
       end
       @results
     end

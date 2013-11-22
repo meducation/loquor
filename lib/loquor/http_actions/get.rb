@@ -9,7 +9,7 @@ module Loquor
     end
 
     def get
-      @config.logger.info "Making GET request to: #{@url}"
+      @config.logger.info "Making GET request to: #{full_url}"
       response = JSON.parse(signed_request.execute)
       @config.logger.info "Signed request executed. Response: #{response}"
       response
@@ -17,8 +17,11 @@ module Loquor
 
     private
     def request
-      full_url = "#{@config.endpoint}#{@url}"
       RestClient::Request.new(url: full_url, method: :get)
+    end
+
+    def full_url
+      "#{@config.endpoint}#{@url}"
     end
   end
 end

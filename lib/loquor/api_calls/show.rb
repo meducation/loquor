@@ -7,7 +7,8 @@ module Loquor
     end
 
     def execute
-      Loquor.get("#{@path}/#{@id}")
+      obj = Loquor.get("#{@path}/#{@id}")
+      Representation.new(obj)
     end
   end
 end

@@ -10,10 +10,10 @@ module Loquor
     end
 
     def post
-      @config.logger.info "Making POST request to: #{@url}"
+      @config.logger.info "Making POST request to: #{full_url}"
       response = JSON.parse(signed_request.execute)
       @config.logger.info "Signed request executed. Response: #{response}"
-      response
+      Representation.new(response)
     end
 
     private
@@ -25,12 +25,15 @@ module Loquor
     end
 
     def request
-      full_url = "#{@config.endpoint}#{@url}"
       RestClient::Request.new(url: full_url,
                               accept: :json,
                               payload: @payload.to_json,
                               headers: {'Content-type' => 'application/json'},
                               method: :post)
+    end
+
+    def full_url
+      "#{@config.endpoint}#{@url}"
     end
   end
 end

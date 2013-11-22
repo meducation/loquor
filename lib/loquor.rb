@@ -6,6 +6,7 @@ require "loquor/version"
 require "loquor/configuration"
 require "loquor/client"
 require 'loquor/interactor'
+require 'loquor/representation'
 
 require 'loquor/api_call'
 require "loquor/http_action"

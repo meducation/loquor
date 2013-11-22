@@ -93,5 +93,22 @@ module Loquor
       Loquor.expects(:get).with("http://foobar.com?&page=2&per=200").returns([])
       searcher.find_each {}
     end
+
+    def test_find_each_objects_are_representations
+      searcher = ApiCall::Index.new('')
+      Loquor.expects(:get).returns([{'id' => 8}, {'id' => 10}])
+      searcher.find_each do |rep|
+        assert rep.is_a?(Representation)
+      end
+    end
+
+    def test_objects_are_representations
+      index = ApiCall::Index.new("")
+      Loquor.stubs(get: [{foo: 'bar'}, {cat: 'dog'}])
+      results = index.send(:results)
+      assert results.is_a?(Array)
+      assert results[0].is_a?(Representation)
+      assert results[1].is_a?(Representation)
+    end
   end
 end

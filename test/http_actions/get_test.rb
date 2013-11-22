@@ -38,5 +38,6 @@ module Loquor
       ApiAuth.expects(:sign!).with(request, @access_id, @secret_key)
       gets.send(:signed_request)
     end
+
   end
 end

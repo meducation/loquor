@@ -46,6 +46,12 @@ module Loquor
       posts.send(:signed_request)
     end
 
+    def test_response_is_a_representation
+      posts = HttpAction::Post.new("", {}, deps)
+      posts.stubs(signed_request: mock(execute: {foo: 'bar'}.to_json))
+      response = posts.post
+      assert response.is_a?(Representation)
+    end
   end
 end
 

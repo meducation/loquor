@@ -1,29 +1,40 @@
 module Loquor
-  module Interactor
-    module ClassMethods
-      [:find, :find_each, :where, :create].each do |proxy|
-        define_method proxy do |*args, &block|
-          new.send proxy, *args, &block
-        end
+  class Representation
+    def initialize(hash)
+      @hash = hash
+    end
+
+    def ==(other)
+      if other.is_a?(Representation)
+        @hash == other.get_instance_variable(:@hash)
+      elsif other.is_a?(Hash)
+        @hash == other
+      else
+        false
       end
     end
 
-    module InstanceMethods
-      def find(id)
-        ApiCall::Show.new(self.class.path, id).execute
-      end
+    def [](key)
+      @hash[key]
+    end
 
-      def find_each(&block)
-        ApiCall::Index.new(self.class.path).find_each(&block)
+    def method_missing(name, *args)
+      if @hash.has_key?(name)
+        @hash[name]
+      else
+        super
       end
+    end
+  end
+end
 
-      def where(*args)
-        ApiCall::Index.new(self.class.path).where(*args)
-      end
-
-      def create(payload)
-        ApiCall::Create.new(self.class.path, payload).execute
-      end
+class Hash
+  alias_method :hash_equals, :==
+  def ==(other)
+    if other.is_a?(Loquor::Representation)
+      other == self
+    else
+      hash_equals(other)
     end
   end
 end
