@@ -1,7 +1,7 @@
-Loquor::Representations.each do |name, path|
+Loquor::Interactors.each do |name, path|
   klass = Class.new(Object) do
-    extend Loquor::Representation::ClassMethods
-    include Loquor::Representation::InstanceMethods
+    extend Loquor::Interactor::ClassMethods
+    include Loquor::Interactor::InstanceMethods
 
     instance_eval <<-EOS
       def path

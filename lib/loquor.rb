@@ -5,14 +5,14 @@ require 'filum'
 require "loquor/version"
 require "loquor/configuration"
 require "loquor/client"
-require 'loquor/representation'
+require 'loquor/interactor'
 
 require 'loquor/api_call'
 require "loquor/http_action"
 
 module Loquor
 
-  Representations = {
+  Interactors = {
     "GroupDiscussion"     => "/group_discussions",
     "GroupDiscussionPost" => "/group_discussion_posts",
     "MediaFile"           => "/media_files",
@@ -46,4 +46,4 @@ module Loquor
   end
 end
 
-require 'loquor/representations'
+require 'loquor/interactors'

@@ -1,7 +1,7 @@
 require File.expand_path('../test_helper', __FILE__)
 
 module Loquor
-  class RepresentationTest < Minitest::Test
+  class InteractorTest < Minitest::Test
 
     {
       MediaFile: "/media_files",
