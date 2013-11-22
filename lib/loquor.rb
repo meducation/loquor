@@ -16,6 +16,10 @@ module Loquor
     "GroupDiscussion"     => "/group_discussions",
     "GroupDiscussionPost" => "/group_discussion_posts",
     "MediaFile"           => "/media_files",
+    "Mnemonic"            => "/mnemonics",
+    "PremiumTutorial"     => "/premium_tutorials",
+    "Partner"             => "/partners",
+    "SyllabusItem"        => "/syllabus_items",
     "User"                => "/users"
   }
 

@@ -23,6 +23,7 @@ module Loquor
 
     def find_each
       page = 1
+      per = 200
       results = []
       begin
         results = Loquor.get("#{generate_url}&page=#{page}&per=#{per}")
