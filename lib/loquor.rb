@@ -17,6 +17,7 @@ module Loquor
     "GroupDiscussion"     => "/group_discussions",
     "GroupDiscussionPost" => "/group_discussion_posts",
     "MediaFile"           => "/media_files",
+    "MeshHeading"         => "/mesh_headings",
     "Mnemonic"            => "/mnemonics",
     "PremiumTutorial"     => "/premium_tutorials",
     "Partner"             => "/partners",

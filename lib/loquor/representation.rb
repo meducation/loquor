@@ -1,4 +1,7 @@
 module Loquor
+  class RepresentationHashKeyMissingError < LoquorError
+
+  end
   class Representation
     def initialize(hash)
       @hash = hash
@@ -15,14 +18,28 @@ module Loquor
     end
 
     def [](key)
-      @hash[key]
+      fetch_indescriminately(key)
+    rescue RepresentationHashKeyMissingError
+      nil
     end
 
     def method_missing(name, *args)
+      fetch_indescriminately(name, *args)
+    rescue RepresentationHashKeyMissingError
+      @hash.send(name, *args)
+    end
+
+    private
+
+    def fetch_indescriminately(name, *args)
       if @hash.has_key?(name)
         @hash[name]
+      elsif @hash.has_key?(name.to_s)
+        @hash[name.to_s]
+      elsif @hash.has_key?(name.to_s.to_sym)
+        @hash[name.to_s.to_sym]
       else
-        super
+        raise RepresentationHashKeyMissingError.new
       end
     end
   end
