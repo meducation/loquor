@@ -1,10 +1,10 @@
-# Loquor - Meducation API Dispatcher
+# Loquor - An API accessor using ActiveRecord-style interface.
 
 [![Build Status](https://travis-ci.org/meducation/loquor.png)](https://travis-ci.org/meducation/loquor)
 [![Dependencies](https://gemnasium.com/meducation/loquor.png?travis)](https://gemnasium.com/meducation/loquor)
 [![Code Climate](https://codeclimate.com/github/meducation/loquor.png)](https://codeclimate.com/github/meducation/loquor)
 
-Handles calls to the Meducation API via an ActiveRecord-style interface
+Loquor handles calls to an API via an ActiveRecord-style interface. It is currently configured for the Meducation API but could easily be changed for any other API. It allows you to access show/index/update/create actions with simple calls like `MediaFile.find(8)`, without having to worry about HTTP, JSON or in fact anything else.
 
 ## Installation
 
@@ -17,7 +17,6 @@ gem 'loquor'
 And then execute:
 
     $ bundle
-
 
 ## Usage
 
@@ -41,14 +40,6 @@ Loquor::User.find(2) # => {id: 2, name: "Jeremy Walker"}
 
 Loquor::User.create(name: "Jeremy Walker", email: "jeremy@meducation.net") # => {id: 2, name: "Jeremy Walker", email "jeremy@meducation.net"}
 ```
-
-### Supported Objects
-
-The following are currently endpoints are supported:
-* Group Discussions
-* Group Discussion Posts
-* Media Files
-* Users
 
 ### Is it any good?
 

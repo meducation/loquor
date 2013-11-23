@@ -3,13 +3,11 @@
 First of all, **thank you** for contributing to this library!
 
 ## Issues
-Please file issues on the [GitHub issues list](https://github.com/meducation/propono/issues) and give as much detail as possible.
+Please file issues on the [GitHub issues list](https://github.com/meducation/loquor/issues) and give as much detail as possible.
 
 ## Features / Pull Requests
 
 If you want a feature implemented, the best way to get it done is to submit a pull request that implements it. Please make sure it has tests.
-
-To get the implementation tests to run, you'll need to create a `test/config.yml` file. There's an example to get you started.
 
 You can run the tests with:
 
