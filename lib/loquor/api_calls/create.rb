@@ -1,13 +1,13 @@
 module Loquor
   class ApiCall::Create < ApiCall
 
-    def initialize(path, payload)
-      super(path)
+    def initialize(klass, payload)
+      super(klass)
       @payload = payload
     end
 
     def execute
-      Loquor.post(@path, @payload)
+      klass.new Loquor.post(klass.path, @payload)
     end
   end
 end

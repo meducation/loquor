@@ -1,7 +1,8 @@
 module Loquor
   class ApiCall
-    def initialize(path)
-      @path = path
+    attr_reader :klass
+    def initialize(klass)
+      @klass = klass
     end
   end
 end

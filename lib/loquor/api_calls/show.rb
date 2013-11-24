@@ -1,14 +1,14 @@
 module Loquor
   class ApiCall::Show < ApiCall
 
-    def initialize(path, id)
-      super(path)
+    def initialize(klass, id)
+      super(klass)
       @id = id
     end
 
     def execute
-      obj = Loquor.get("#{@path}/#{@id}")
-      Representation.new(obj)
+      obj = Loquor.get("#{klass.path}/#{@id}")
+      @klass.new(obj)
     end
   end
 end

@@ -20,7 +20,7 @@ module Loquor
       json = output.to_json
       posts = HttpAction::Post.new("", {}, deps)
       posts.expects(signed_request: mock(execute: json))
-      assert_equal output, posts.post
+      assert_equal 'bar', posts.post.foo
     end
 
     def test_request_is_generated_correctly
@@ -50,7 +50,7 @@ module Loquor
       posts = HttpAction::Post.new("", {}, deps)
       posts.stubs(signed_request: mock(execute: {foo: 'bar'}.to_json))
       response = posts.post
-      assert response.is_a?(Representation)
+      assert response.is_a?(Resource)
     end
   end
 end

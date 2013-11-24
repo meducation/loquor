@@ -1,14 +1,14 @@
 module Loquor
-  class RepresentationHashKeyMissingError < LoquorError
-
+  class ObjectHashKeyMissingError < LoquorError
   end
-  class Representation
+
+  class ObjectHash
     def initialize(hash)
       @hash = hash
     end
 
     def ==(other)
-      if other.is_a?(Representation)
+      if other.is_a?(ObjectHash)
         @hash == other.get_instance_variable(:@hash)
       elsif other.is_a?(Hash)
         @hash == other
@@ -19,13 +19,13 @@ module Loquor
 
     def [](key)
       fetch_indescriminately(key)
-    rescue RepresentationHashKeyMissingError
+    rescue ObjectHashKeyMissingError
       nil
     end
 
     def method_missing(name, *args)
       fetch_indescriminately(name, *args)
-    rescue RepresentationHashKeyMissingError
+    rescue ObjectHashKeyMissingError
       @hash.send(name, *args)
     end
 
@@ -39,7 +39,7 @@ module Loquor
       elsif @hash.has_key?(name.to_s.to_sym)
         @hash[name.to_s.to_sym]
       else
-        raise RepresentationHashKeyMissingError.new
+        raise ObjectHashKeyMissingError.new
       end
     end
   end
@@ -48,7 +48,7 @@ end
 class Hash
   alias_method :hash_equals, :==
   def ==(other)
-    if other.is_a?(Loquor::Representation)
+    if other.is_a?(Loquor::ObjectHash)
       other == self
     else
       hash_equals(other)

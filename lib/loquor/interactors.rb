@@ -17,7 +17,8 @@ Loquor::Interactors.each do |name, path|
   # Create base modules
   const = Loquor
   name_parts.each do |name_part|
-    const.const_set name_part, Module unless const.const_defined?(name_part)
+    const.const_set(name_part, Module.new) unless const.const_defined?(name_part)
+    const = const.const_get(name_part)
   end
 
   # Define the actual klass at the right point

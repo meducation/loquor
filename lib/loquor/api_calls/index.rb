@@ -3,8 +3,8 @@ module Loquor
 
     attr_reader :criteria
 
-    def initialize(path)
-      super(path)
+    def initialize(klass)
+      super(klass)
       @criteria = {}
     end
 
@@ -28,7 +28,7 @@ module Loquor
       begin
         results = Loquor.get("#{generate_url}&page=#{page}&per=#{per}")
         results.each do |result|
-          yield Representation.new(result)
+          yield klass.new(result)
         end
         page += 1
       end while(results.size == per)
@@ -38,7 +38,7 @@ module Loquor
 
     def results
       if @results.nil?
-        @results = Loquor.get(generate_url).map {|obj| Representation.new(obj)}
+        @results = Loquor.get(generate_url).map {|obj| klass.new(obj)}
       end
       @results
     end
@@ -53,7 +53,7 @@ module Loquor
           raise LoquorError.new("Filter values must be strings or arrays.")
         end
       }.join("&")
-      "#{@path}?#{query_string}"
+      "#{klass.path}?#{query_string}"
     end
   end
 end
