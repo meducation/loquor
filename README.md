@@ -4,7 +4,7 @@
 [![Dependencies](https://gemnasium.com/meducation/loquor.png?travis)](https://gemnasium.com/meducation/loquor)
 [![Code Climate](https://codeclimate.com/github/meducation/loquor.png)](https://codeclimate.com/github/meducation/loquor)
 
-Loquor handles calls to an API via an ActiveRecord-style interface. It is currently configured for the Meducation API but could easily be changed for any other API. It allows you to access show/index/update/create actions with simple calls like `MediaFile.find(8)`, without having to worry about HTTP, JSON or in fact anything else.
+Loquor handles calls to an API via an ActiveRecord-style interface. It is currently configured for the Meducation API but could easily be changed for any other API. It allows you to access show/index/update/create actions with simple calls like `MediaFile.find(8)`, without having to worry about HTTP, JSON or anything else.
 
 ## Installation
 
@@ -20,7 +20,7 @@ And then execute:
 
 ## Usage
 
-You will want to set up some configuration variables.
+To get going, you will want to set up some configuration variables.
 ``` ruby
 Loquor.config do |config|
   config.access_id  = "Username"
@@ -29,15 +29,44 @@ Loquor.config do |config|
 end
 ```
 
-Now you can make requests to get, create, update, destroy and list a range of objects, like this:
+If you're not using this for Meducation, then edit the [mappings here](https://github.com/meducation/loquor/blob/master/lib/loquor.rb#L16).
+
+Now you can make requests to get, create, update, destroy and list a range of objects, likein the same way you would interactive with an ActiveREcord object.
+
+For example, you can get search objects using where:
 
 ```ruby
-Loquor::User.where(email: "jeremy@meducation.net").where(name: "Jeremy").each do |user|
+items = Loquor::User.where(email: "jeremy@meducation.net").where(name: "Jeremy")
+# => [{id: 2, name: "Jeremy Walker"}, {id: 3, name: "Malcolm Landon"}]
+```
+
+Items responds to all the enumeration methods on Array. e.g.
+
+```ruby
+items.each do |user|
   p "The user with id ##{user['id']} is #{user['name']}."
 end
+```
 
+The returned objects can be accessed as hashes (using either strings or symbols), or using dot notaton. e.g.:
+
+```ruby
+user = User.where(foo: 'bar').first
+user.name
+user['name']
+user[:name]
+```
+
+You can use `find` and `find_each` (which sends requests to the API in batches of 200)
+```ruby
 Loquor::User.find(2) # => {id: 2, name: "Jeremy Walker"}
+Loquor::User.find_each do |user|
+  # ...
+end
+```
 
+You can also create users using the normal ActiveRecord method:
+```ruby
 Loquor::User.create(name: "Jeremy Walker", email: "jeremy@meducation.net") # => {id: 2, name: "Jeremy Walker", email "jeremy@meducation.net"}
 ```
 
