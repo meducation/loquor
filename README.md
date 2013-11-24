@@ -1,4 +1,4 @@
-# Loquor - An API accessor using ActiveRecord-style interface.
+# Loquor
 
 [![Build Status](https://travis-ci.org/meducation/loquor.png)](https://travis-ci.org/meducation/loquor)
 [![Dependencies](https://gemnasium.com/meducation/loquor.png?travis)](https://gemnasium.com/meducation/loquor)
