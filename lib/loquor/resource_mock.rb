@@ -18,10 +18,7 @@ module Loquor
     end
 
     def where(*args)
-      [
-        self.new(attributes.merge(id: 1)),
-        self.new(attributes.merge(id: 2))
-      ]
+      [ find(1), find(2) ]
     end
 
     def create(attrs)
@@ -29,4 +26,3 @@ module Loquor
     end
   end
 end
-
