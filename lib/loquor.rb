@@ -7,6 +7,7 @@ require "loquor/configuration"
 require "loquor/client"
 require 'loquor/object_hash'
 require 'loquor/resource'
+require 'loquor/resource_mock'
 
 require 'loquor/api_call'
 require "loquor/http_action"
