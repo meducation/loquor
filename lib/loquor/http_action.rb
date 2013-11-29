@@ -14,4 +14,4 @@ end
 
 require 'loquor/http_actions/get'
 require 'loquor/http_actions/post'
-
+require 'loquor/http_actions/put'

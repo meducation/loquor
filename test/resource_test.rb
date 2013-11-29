@@ -30,5 +30,12 @@ module Loquor
       Loquor.expects(:get).with("/foobar?email=#{email}").returns([])
       Foobar.where(email: email).to_a
     end
+
+    def test_update_should_put_correct_params
+      id = 8
+      payload = {bar: 'foo'}
+      Loquor.expects(:put).with("/foobar/#{id}", payload: payload)
+      Foobar.update(id, payload)
+    end
   end
 end

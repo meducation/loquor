@@ -1,3 +1,6 @@
+# 0.4.0 / 2013-11-23
+* [FEATURE] Add support for updates
+
 # 0.2.0 / 2013-11-23
 * [FEATURE] Improve access to keys on Representations
 
