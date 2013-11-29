@@ -16,6 +16,16 @@ module Loquor
       client.get(url)
     end
 
+    def test_put_calls_puts
+      url = "foobar"
+      payload = {foo: 'bar'}
+
+      client = Client.new
+      deps = {config: client.config}
+      HttpAction::Put.expects(:put).with(url, payload, deps)
+      client.put(url, payload)
+    end
+
     def test_post_calls_posts
       url = "foobar"
       payload = {x: true}

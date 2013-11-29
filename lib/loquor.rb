@@ -26,6 +26,10 @@ module Loquor
     loquor.get(url)
   end
 
+  def self.put(url, payload)
+    loquor.put(url, payload)
+  end
+
   def self.post(url, payload)
     loquor.post(url, payload)
   end
