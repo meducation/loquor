@@ -8,6 +8,12 @@ module Loquor
       r
     end
 
+    def test_select_sets_criteria
+      fields = [:cat, :dog]
+      searcher = ApiCall::Index.new(resource).select(fields)
+      assert_equal({fields: fields}, searcher.criteria)
+    end
+
     def test_where_sets_criteria
       criteria = {genre: 'Animation'}
       searcher = ApiCall::Index.new(resource).where(criteria)
@@ -39,6 +45,15 @@ module Loquor
       assert_equal criteria, searcher.criteria
     end
 
+    def test_generates_url_correctly_with_array_in_a_hash
+      criteria = {thing: ['foo', 'bar']}
+      searcher = ApiCall::Index.new(resource).where(criteria)
+      searcher.stubs(path: "foobar")
+      url = searcher.send(:generate_url)
+      assert url.include?("thing[]=foo")
+      assert url.include?("thing[]=bar")
+    end
+
     def test_that_iterating_calls_results
       searcher = ApiCall::Index.new(resource).where(name: "star_wars")
       searcher.expects(results: [])
@@ -50,13 +65,6 @@ module Loquor
       searcher = ApiCall::Index.new(resource).where(name: "star_wars")
       searcher.send(:results).expects(:each)
       searcher.each { }
-    end
-
-    def test_that_select_calls_each
-      Loquor.expects(:get).returns([{id: 8, name: "Star Wars"}])
-      searcher = ApiCall::Index.new(resource).where(name: "star_wars")
-      searcher.send(:results).expects(:select)
-      searcher.select { }
     end
 
     def test_search_should_set_results

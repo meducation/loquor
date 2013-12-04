@@ -15,6 +15,12 @@ module Loquor
       self
     end
 
+    def select(value)
+      @criteria[:fields] ||= []
+      @criteria[:fields] += value
+      self
+    end
+
     # Proxy everything to the results so that this this class
     # transparently acts as an Array.
     def method_missing(name, *args, &block)
@@ -44,16 +50,19 @@ module Loquor
     end
 
     def generate_url
-      query_string = @criteria.map { |key,value|
+      query_string = []
+      @criteria.each do |key,value|
         if value.is_a?(String)
-          "#{key}=#{URI.encode(value)}"
+          query_string << "#{key}=#{URI.encode(value)}"
         elsif value.is_a?(Array)
-          "#{key}=[#{URI.encode(value.join(","))}]"
+          value.each do |v|
+            query_string << "#{key}[]=#{URI.encode(v)}"
+          end
         else
           raise LoquorError.new("Filter values must be strings or arrays.")
         end
-      }.join("&")
-      "#{klass.path}?#{query_string}"
+      end
+      "#{klass.path}?#{query_string.join("&")}"
     end
   end
 end
