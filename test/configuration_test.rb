@@ -59,5 +59,15 @@ module Loquor
       Loquor.config.secret_key_file = File.expand_path('test/etc/loquor-identity')
       assert_equal "secret-key-from-file", Loquor.config.secret_key
     end
+    
+    def test_should_default_to_filum_logger
+      assert_equal Filum.logger, Loquor.config.logger
+    end
+    
+    def test_can_override_logger
+      my_logger = Logger.new(nil)
+      Loquor.config.logger = my_logger
+      assert_equal my_logger, Loquor.config.logger
+    end
   end
 end

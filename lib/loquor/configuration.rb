@@ -16,7 +16,7 @@ module Loquor
       Filum.config do |config|
         config.logfile = "./log/loquor.log"
       end
-      logger = Filum.logger
+      self.logger = Filum.logger
     end
 
     SETTINGS.each do |setting|
