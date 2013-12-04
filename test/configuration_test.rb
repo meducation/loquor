@@ -54,5 +54,10 @@ module Loquor
         Loquor.config.endpoint
       end
     end
+      
+    def test_can_load_secret_key_from_file
+      Loquor.config.secret_key_file = File.expand_path('test/etc/loquor-identity')
+      assert_equal "secret-key-from-file", Loquor.config.secret_key
+    end
   end
 end
