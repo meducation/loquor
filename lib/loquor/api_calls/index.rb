@@ -52,11 +52,12 @@ module Loquor
     def generate_url
       query_string = []
       @criteria.each do |key,value|
-        if value.is_a?(String)
-          query_string << "#{key}=#{URI.encode(value)}"
-        elsif value.is_a?(Array)
+        case value
+        when String, Symbol, Numeric
+          query_string << "#{key}=#{URI.encode(value.to_s)}"
+        when Array
           value.each do |v|
-            query_string << "#{key}[]=#{URI.encode(v)}"
+            query_string << "#{key}[]=#{URI.encode(v.to_s)}"
           end
         else
           raise LoquorError.new("Filter values must be strings or arrays.")

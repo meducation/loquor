@@ -39,6 +39,26 @@ module Loquor
       assert searcher.send(:generate_url).include? "?name=Star%20Wars"
     end
 
+    def test_where_gets_correct_url_with_symbol
+      searcher = ApiCall::Index.new(resource).where(name: :star)
+      assert searcher.send(:generate_url).include? "?name=star"
+    end
+
+    def test_where_gets_correct_url_with_number
+      searcher = ApiCall::Index.new(resource).where(name: 1)
+      assert searcher.send(:generate_url).include? "?name=1"
+    end
+
+    def test_where_gets_correct_url_with_hashed_symbols
+      searcher = ApiCall::Index.new(resource).where(name: [:star, :wars])
+      assert searcher.send(:generate_url).include? "?name[]=star&name[]=wars"
+    end
+
+    def test_where_gets_correct_url_with_hashed_integers
+      searcher = ApiCall::Index.new(resource).where(name: [1,2])
+      assert searcher.send(:generate_url).include? "?name[]=1&name[]=2"
+    end
+
     def test_where_works_with_array_in_a_hash
       criteria = {thing: ['foo', 'bar']}
       searcher = ApiCall::Index.new(resource).where(criteria)
