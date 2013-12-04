@@ -25,6 +25,12 @@ module Loquor
       end
     end
 
+    def test_select_should_proxy
+      args = {a: 'b'}
+      Loquor::ApiCall::Index.any_instance.expects(:select).with(args)
+      Foobar.select(args)
+    end
+
     def test_where_should_get_correct_path_with_simple_path
       email = "foobar"
       Loquor.expects(:get).with("/foobar?email=#{email}").returns([])

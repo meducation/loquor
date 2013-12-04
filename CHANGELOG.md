@@ -1,3 +1,6 @@
+# 0.5.0 / 2013-12-04
+* [FEATURE] Add support for select
+
 # 0.4.0 / 2013-11-23
 * [FEATURE] Add support for updates
 

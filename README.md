@@ -57,6 +57,12 @@ user['name']
 user[:name]
 ```
 
+You can use `select` (for api calls that support it), which specifies which fields to return.
+
+```ruby
+items = Loquor::User.select([:id, :name])
+# => [{id: 2, name: "Jeremy Walker"}, {id: 3, name: "Malcolm Landon"}]
+```
 You can use `find` and `find_each` (which sends requests to the API in batches of 200)
 ```ruby
 Loquor::User.find(2) # => {id: 2, name: "Jeremy Walker"}

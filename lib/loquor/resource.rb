@@ -25,6 +25,10 @@ module Loquor
       ApiCall::Index.new(self).find_each(&block)
     end
 
+    def self.select(*args)
+      ApiCall::Index.new(self).select(*args)
+    end
+
     def self.where(*args)
       ApiCall::Index.new(self).where(*args)
     end
