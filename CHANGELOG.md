@@ -1,3 +1,6 @@
+# 0.5.1 / 2013-12-04
+* [FEATURE] Convert symbols and numbers to strings in where clauses
+
 # 0.5.0 / 2013-12-04
 * [FEATURE] Add support for select
 
