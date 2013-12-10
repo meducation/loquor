@@ -1,6 +1,23 @@
 module Loquor
   module ResourceMock
 
+    def self.extended(x)
+      x.class_eval do
+        def method_missing(name, *args)
+          if name[-1] == "="
+            if self.class.attributes.keys.map{ |k| :"#{k}=" }.include?(name)
+              attr = name.to_s[0..-2].to_sym
+              @data[attr] = args[0]
+            else
+              raise NameError.new("undefined local variable or method '#{name}' for Resource Mock")
+            end
+          else
+            super(name, *args)
+          end
+        end
+      end
+    end
+
     def attributes
       @attributes
     end
