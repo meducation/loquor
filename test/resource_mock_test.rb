@@ -22,6 +22,17 @@ module Loquor
         foobar.description = "Cat"
       end
     end
+
+    def test_should_return_sample_object
+      foobar = Foobar.sample
+      assert_equal "Foobar", foobar.name
+    end
+
+    def test_should_allow_sample_attributes_to_be_overriden
+      name = "Cat"
+      foobar = Foobar.sample(name: name)
+      assert_equal name, foobar.name
+    end
   end
 end
 
