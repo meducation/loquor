@@ -1,3 +1,6 @@
+# 0.5.3 / 2013-12-11
+* [FEATURE] Add support for overridding stubbed responses
+
 # 0.5.2 / 2013-12-04
 * [FEATURE] Upgrade to latest Filum logger
 
