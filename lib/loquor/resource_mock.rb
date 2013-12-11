@@ -26,8 +26,8 @@ module Loquor
       @attributes = attrs
     end
 
-    def sample
-      self.new(attributes)
+    def sample(overrides = {})
+      self.new(attributes.merge(overrides))
     end
 
     def find(id)
