@@ -1,10 +1,11 @@
 module Loquor
- class HttpAction::Test < Minitest::Test
+  class HttpAction::Test < Minitest::Test
     def setup 
       super 
       @access_id = "123"
       @secret_key = "Foobar132"
       @endpoint = "http://www.thefoobar.com"
+      @cache = mock()
     end
 
     def deps
@@ -16,7 +17,15 @@ module Loquor
       config.stubs(access_id: @access_id)
       config.stubs(secret_key: @secret_key)
       config.stubs(endpoint: @endpoint)
+      config.stubs(cache: @cache)
       {config: config}
     end
- end
+    
+    def test_execute_signs_and_executes
+      json = "{}"
+      action = HttpAction.new("", deps)
+      action.expects(signed_request: mock(execute: json))
+      assert_equal json, action.send(:execute)
+    end
+  end
 end

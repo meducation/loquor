@@ -22,8 +22,8 @@ module Loquor
     end
   end
 
-  def self.get(url)
-    loquor.get(url)
+  def self.get(url, *args)
+    loquor.get(url, *args)
   end
 
   def self.put(url, payload)

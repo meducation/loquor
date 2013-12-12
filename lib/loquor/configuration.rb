@@ -11,6 +11,7 @@ module Loquor
     ]
 
     attr_writer *SETTINGS
+    attr_accessor :cache
 
     def initialize
       Filum.config do |config|

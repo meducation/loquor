@@ -7,7 +7,11 @@ module Loquor
     end
 
     def execute
-      obj = Loquor.get("#{klass.path}/#{@id}")
+      obj = if (klass.cache)
+        Loquor.get("#{klass.path}/#{@id}", cache=klass.cache)
+      else
+        Loquor.get("#{klass.path}/#{@id}")
+      end
       @klass.new(obj)
     end
   end

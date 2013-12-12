@@ -17,6 +17,14 @@ module Loquor
       @path
     end
 
+    def self.cache=(value)
+      @value = value
+    end
+
+    def self.cache
+      @value
+    end
+
     def self.find(id)
       ApiCall::Show.new(self, id).execute
     end

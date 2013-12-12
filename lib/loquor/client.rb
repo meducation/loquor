@@ -6,8 +6,9 @@ module Loquor
       @config = Configuration.new
     end
 
-    def get(url)
+    def get(url, cache=nil)
       deps = {config: @config}
+      deps[:should_cache] = cache if cache
       HttpAction::Get.get(url, deps)
     end
 
