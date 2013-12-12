@@ -43,5 +43,13 @@ module Loquor
       Loquor.expects(:put).with("/foobar/#{id}", payload: payload)
       Foobar.update(id, payload)
     end
+   
+    def test_can_read_path
+      assert_equal "/foobar", Foobar.path
+    end
+    
+    def test_cache_flag_false_by_default
+      refute Foobar.cache
+    end
   end
 end

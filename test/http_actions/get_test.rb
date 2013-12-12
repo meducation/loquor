@@ -39,5 +39,44 @@ module Loquor
       gets.send(:signed_request)
     end
 
+    def test_get_cached_resource
+      output = {'foo' => 'bar'}
+      json = output.to_json
+
+      gets = HttpAction::Get.new("", deps.merge({should_cache: true}))
+      gets.expects(execute_against_cache: json)
+      assert_equal output, gets.get
+    end
+    
+    def test_cache_hit
+      url = "/resource"
+      full_url = "#{@endpoint}#{url}"
+      cached_value = "{}"
+      @cache.expects(:get).with(full_url).returns(cached_value)
+      gets = HttpAction::Get.new(url, deps.merge({should_cache: true}))
+      assert_equal cached_value, gets.send(:execute_against_cache)
+    end
+
+    def test_execute_http_call_on_cache_miss
+      url = "/resource" 
+      full_url = "#{@endpoint}#{url}"
+      json_response = "{}"
+      
+      @cache.expects(:get).with(full_url).returns(nil)
+      @cache.expects(:set).with(full_url, json_response)
+
+      gets = HttpAction::Get.new(url, deps.merge({should_cache: true}))
+      gets.expects(execute: json_response)
+      assert_equal json_response, gets.send(:execute_against_cache)
+    end
+
+    def test_does_not_cache_when_no_cache_configured
+      json_response = "{}"
+      
+      @cache = nil
+      gets = HttpAction::Get.new("", deps.merge({should_cache: true}))
+      gets.expects(execute: json_response)
+      gets.send(:execute_against_cache)
+    end
   end
 end

@@ -9,19 +9,29 @@ module Loquor
     end
 
     def get
-      @config.logger.info "Making GET request to: #{full_url}"
-      response = JSON.parse(signed_request.execute)
-      @config.logger.info "Signed request executed. Response: #{response}"
+      @config.logger.info "GET: #{full_url}"
+      response = @should_cache ? JSON.parse(execute_against_cache) : JSON.parse(execute)
+      @config.logger.info "Response: #{response}"
       response
+    end
+      
+    def execute_against_cache
+      cache = @config.cache
+      if cache
+        val = cache.get(request.url)
+        unless val
+          val = execute
+          cache.set(request.url, val)
+        end
+        val
+      else
+        execute
+      end 
     end
 
     private
     def request
       RestClient::Request.new(url: full_url, method: :get)
-    end
-
-    def full_url
-      "#{@config.endpoint}#{@url}"
     end
   end
 end
