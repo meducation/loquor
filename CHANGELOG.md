@@ -1,3 +1,6 @@
+# 0.5.4 / 2013-12-13
+* [FEATURE] Add support for basic resource caching
+
 # 0.5.3 / 2013-12-11
 * [FEATURE] Add support for overridding stubbed responses
 
