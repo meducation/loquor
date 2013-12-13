@@ -3,8 +3,9 @@ module Loquor
   end
 
   class ObjectHash
-    def initialize(hash)
+    def initialize(hash, options = {})
       @hash = hash
+      @strict = options[:strict]
     end
 
     def ==(other)
@@ -20,13 +21,19 @@ module Loquor
     def [](key)
       fetch_indescriminately(key)
     rescue ObjectHashKeyMissingError
-      nil
+      if @strict
+        raise $!
+      else
+        nil
+      end
     end
 
     def method_missing(name, *args)
-      fetch_indescriminately(name, *args)
-    rescue ObjectHashKeyMissingError
-      @hash.send(name, *args)
+      if name[-1] == "="
+        @hash.send(name, *args) 
+      else
+        self[name]
+      end
     end
 
     private
@@ -39,7 +46,7 @@ module Loquor
       elsif @hash.has_key?(name.to_s.to_sym)
         @hash[name.to_s.to_sym]
       else
-        raise ObjectHashKeyMissingError.new
+        raise ObjectHashKeyMissingError.new(name)
       end
     end
   end

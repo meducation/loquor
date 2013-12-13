@@ -9,7 +9,7 @@ module Loquor
               attr = name.to_s[0..-2].to_sym
               @data[attr] = args[0]
             else
-              raise NameError.new("undefined local variable or method '#{name}' for Resource Mock")
+              raise NameError.new("undefined local variable or method '#{name}' for #{self.class.name}")
             end
           else
             super(name, *args)
@@ -27,6 +27,10 @@ module Loquor
     end
 
     def sample(overrides = {})
+      arbitary_attributes = (overrides.keys - attributes.keys)
+      unless arbitary_attributes.empty?
+        raise NameError.new("undefined local variable or method '#{arbitary_attributes.first}' for #{self.name}")
+      end
       self.new(attributes.merge(overrides))
     end
 

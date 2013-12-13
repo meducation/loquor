@@ -1,3 +1,7 @@
+# 0.6.0 / 2013-12-13
+* [FEATURE] Add strict mode to ObjectHash
+* [FEATURE] Don't allow arbitary sample attributes to be overriden
+
 # 0.5.4 / 2013-12-13
 * [FEATURE] Add support for basic resource caching
 

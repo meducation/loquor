@@ -2,11 +2,13 @@ module Loquor
   class Resource
 
     def initialize(data)
-      @data = ObjectHash.new(data)
+      @data = ObjectHash.new(data, strict: true)
     end
 
     def method_missing(name, *args)
       @data[name]
+    rescue
+      raise NameError.new("undefined local variable or method '#{name}' for #{self.class.name}")
     end
 
     def self.path=(path)
