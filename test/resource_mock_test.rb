@@ -18,9 +18,10 @@ module Loquor
 
     def test_should_not_be_able_to_set_arbitary_attributes
       foobar = Foobar.find(1)
-      assert_raises(NameError) do
+      ex = assert_raises(NameError) do
         foobar.description = "Cat"
       end
+      assert_equal "undefined local variable or method 'description=' for Loquor::ResourceMockTest::Foobar", ex.message
     end
 
     def test_should_return_sample_object
@@ -32,6 +33,13 @@ module Loquor
       name = "Cat"
       foobar = Foobar.sample(name: name)
       assert_equal name, foobar.name
+    end
+
+    def test_should_not_be_able_to_override_arbitary_attributes
+      ex = assert_raises(NameError) do
+        Foobar.sample(cat: "foobar")
+      end
+      assert_equal "undefined local variable or method 'cat' for Loquor::ResourceMockTest::Foobar", ex.message
     end
   end
 end
