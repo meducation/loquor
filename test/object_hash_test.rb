@@ -26,5 +26,18 @@ module Loquor
       representation = ObjectHash.new({foo: "bar"})
       assert_equal "bar", representation.foo
     end
+
+    def test_non_strict_returns_nil_on_missing_attribute
+      representation = ObjectHash.new({foo: "bar"})
+      assert_equal nil, representation.cat
+    end
+
+    def test_strict_raises_on_missing_attribute
+      representation = ObjectHash.new({foo: "bar"}, strict: true)
+      ex = assert_raises(ObjectHashKeyMissingError) do
+        representation.cat
+      end
+      assert_equal "cat", ex.message
+    end
   end
 end

@@ -19,10 +19,11 @@ module Loquor
 
     def test_find_each_should_yield_block
       Loquor.expects(:get).returns([{id: 1}])
-      ids = []
+      count = 0
       Foobar.find_each do |json|
-        ids << json['id']
+        count += 1
       end
+      assert_equal 1, count
     end
 
     def test_select_should_proxy
@@ -43,13 +44,21 @@ module Loquor
       Loquor.expects(:put).with("/foobar/#{id}", payload: payload)
       Foobar.update(id, payload)
     end
-   
+
     def test_can_read_path
       assert_equal "/foobar", Foobar.path
     end
-    
+
     def test_cache_flag_false_by_default
       refute Foobar.cache
+    end
+
+    def test_raises_on_missing_attribute
+      representation = Foobar.new({})
+      ex = assert_raises(NameError) do
+        representation.random_attr
+      end
+      assert_equal "undefined local variable or method 'random_attr' for Loquor::ResourceTest::Foobar", ex.message
     end
   end
 end
