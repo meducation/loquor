@@ -1,3 +1,6 @@
+# 0.8.0 / 2013-12-16
+* [FEATURE] Add substitute values
+
 # 0.7.0 / 2013-12-16
 * [FEATURE] Use Payload for POST
 

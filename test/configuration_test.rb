@@ -37,6 +37,17 @@ module Loquor
       assert_equal endpoint, Loquor.config.endpoint
     end
 
+    def test_substitute_values
+      substitute_values = {foo: 'bar'}
+      Loquor.config.substitute_values = substitute_values
+      assert_equal substitute_values, Loquor.config.substitute_values
+    end
+
+    def test_substitute_values_writable
+      Loquor.config.substitute_values[:foo] = "bar"
+      assert_equal "bar", Loquor.config.substitute_values[:foo]
+    end
+
     def test_missing_access_id_throws_exception
       assert_raises(LoquorConfigurationError) do
         Loquor.config.access_id

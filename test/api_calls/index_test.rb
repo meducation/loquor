@@ -74,6 +74,15 @@ module Loquor
       assert url.include?("thing[]=bar")
     end
 
+    def test_uses_correct_replacement_strings_in_query
+      Loquor.config.substitute_values[true] = ":__true__"
+      criteria = {thing: true}
+      searcher = ApiCall::Index.new(resource).where(criteria)
+      searcher.stubs(path: "foobar")
+      url = searcher.send(:generate_url)
+      assert url.include?("thing=:__true__")
+    end
+
     def test_that_iterating_calls_results
       searcher = ApiCall::Index.new(resource).where(name: "star_wars")
       searcher.expects(results: [])
