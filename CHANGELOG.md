@@ -1,3 +1,6 @@
+# 0.7.0 / 2013-12-16
+* [FEATURE] Use Payload for POST
+
 # 0.6.0 / 2013-12-13
 * [FEATURE] Add strict mode to ObjectHash
 * [FEATURE] Don't allow arbitary sample attributes to be overriden

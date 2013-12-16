@@ -38,6 +38,12 @@ module Loquor
       Foobar.where(email: email).to_a
     end
 
+    def test_create_should_put_correct_params
+      payload = {bar: 'foo'}
+      Loquor.expects(:post).with("/foobar", payload: payload)
+      Foobar.create(payload)
+    end
+
     def test_update_should_put_correct_params
       id = 8
       payload = {bar: 'foo'}

@@ -10,7 +10,7 @@ module Loquor
       @config.logger.info "Signing request."
       ApiAuth.sign!(request, @config.access_id, @config.secret_key)
     end
-    
+
     def execute
       @config.logger.info "Making HTTP request to: #{full_url}"
       signed_request.execute
@@ -21,9 +21,9 @@ module Loquor
       @config.logger.error("Exception while executing request: #{e.message} <#{e.class}>")
       raise
     end
-    
+
     private
-    
+
     def full_url
       "#{@config.endpoint}#{@url}"
     end

@@ -45,5 +45,9 @@ module Loquor
     def create(attrs)
       self.new(attrs)
     end
+
+    def update(attrs)
+      true
+    end
   end
 end
