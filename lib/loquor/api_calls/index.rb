@@ -52,6 +52,16 @@ module Loquor
     def generate_url
       query_string = []
       @criteria.each do |key,value|
+        add_criteria(query_string, key, value)
+      end
+      "#{klass.path}?#{query_string.join("&")}"
+    end
+
+    def add_criteria(query_string, key, value)
+      substitute_value = Loquor.config.substitute_values[value]
+      if !substitute_value.nil?
+        query_string << "#{key}=#{URI.encode(substitute_value)}"
+      else
         case value
         when String, Symbol, Numeric
           query_string << "#{key}=#{URI.encode(value.to_s)}"
@@ -63,7 +73,6 @@ module Loquor
           raise LoquorError.new("Filter values must be strings or arrays.")
         end
       end
-      "#{klass.path}?#{query_string.join("&")}"
     end
   end
 end

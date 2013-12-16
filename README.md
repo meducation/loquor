@@ -26,6 +26,8 @@ Loquor.config do |config|
   config.access_id  = "Username"
   config.secret_key = "SecretKey1929292"
   config.endpoint   = "http://www.meducation.net"
+  config.substitute_values[true]  = ":__true__"
+  config.substitute_values[false] = ":__false__"
 end
 ```
 

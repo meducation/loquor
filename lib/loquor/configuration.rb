@@ -7,7 +7,7 @@ module Loquor
   class Configuration
 
     SETTINGS = [
-      :logger, :access_id, :secret_key, :endpoint
+      :logger, :access_id, :secret_key, :endpoint, :substitute_values
     ]
 
     attr_writer *SETTINGS
@@ -17,7 +17,8 @@ module Loquor
       Filum.config do |config|
         config.logfile = "./log/loquor.log"
       end
-      logger = Filum.logger
+      self.logger = Filum.logger
+      self.substitute_values = {}
     end
 
     SETTINGS.each do |setting|
