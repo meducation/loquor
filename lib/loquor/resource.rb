@@ -44,7 +44,7 @@ module Loquor
     end
 
     def self.create(payload)
-      ApiCall::Create.new(self, payload).execute
+      ApiCall::Create.new(self, payload: payload).execute
     end
 
     def self.update(id, payload)
