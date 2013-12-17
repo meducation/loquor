@@ -14,9 +14,6 @@ module Loquor
     attr_accessor :cache
 
     def initialize
-      Filum.config do |config|
-        config.logfile = "./log/loquor.log"
-      end
       self.logger = Filum.logger
       self.substitute_values = {}
     end

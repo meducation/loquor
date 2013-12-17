@@ -1,3 +1,6 @@
+# 0.9.0 / 2013-12-17
+* [BUGFIX] Don't set a Filum logfile
+
 # 0.8.0 / 2013-12-16
 * [FEATURE] Add substitute values
 
