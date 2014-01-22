@@ -41,6 +41,16 @@ module Loquor
       end
       assert_equal "undefined local variable or method 'cat' for Loquor::ResourceMockTest::Foobar", ex.message
     end
+
+    def test_should_respond_to_create
+      name = "foobar123"
+      foobar = Foobar.create(name: name)
+      assert_equal name, foobar.name
+    end
+
+    def test_should_respond_to_update
+      assert_equal true, Foobar.update(1, name: "foobar")
+    end
   end
 end
 
