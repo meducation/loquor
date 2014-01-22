@@ -42,11 +42,11 @@ module Loquor
       [ find(1), find(2) ]
     end
 
-    def create(attrs)
-      self.new(attrs)
+    def create(*attrs)
+      self.new(*attrs)
     end
 
-    def update(attrs)
+    def update(*attrs)
       true
     end
   end

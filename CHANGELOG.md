@@ -1,3 +1,6 @@
+# 1.0.0 / 2014-01-22
+* [BUGFIX] Fix issue wth mock not responding to update correctly
+
 # 0.9.0 / 2013-12-17
 * [BUGFIX] Don't set a Filum logfile
 
