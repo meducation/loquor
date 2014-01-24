@@ -6,6 +6,21 @@ module Loquor
       self.path = "/foobar"
     end
 
+    def test_respond_to_still_proxies_to_super
+      foobar = Foobar.new({})
+      assert_equal true, foobar.respond_to?(:to_s)
+    end
+
+    def test_respond_to_still_returns_false_for_non_existant_keys
+      foobar = Foobar.new({})
+      assert_equal false, foobar.respond_to?(:dog)
+    end
+
+    def test_respond_to_should_proxy_to_data
+      foobar = Foobar.new({foo: 'bar'})
+      assert foobar.respond_to?(:foo)
+    end
+
     def test_find_should_get_correct_path_with_simple_path
       id = 8
       Loquor.expects(:get).with("/foobar/#{id}")

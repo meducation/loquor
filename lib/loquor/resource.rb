@@ -11,6 +11,11 @@ module Loquor
       raise NameError.new("undefined local variable or method '#{name}' for #{self.class.name}")
     end
 
+    def respond_to?(name)
+      return true if super
+      @data.respond_to?(name)
+    end
+
     def self.path=(path)
       @path = path
     end
