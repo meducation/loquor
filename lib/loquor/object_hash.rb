@@ -36,6 +36,11 @@ module Loquor
       end
     end
 
+    def respond_to?(key)
+      return true if super
+      @hash.has_key?(key)
+    end
+
     private
 
     def fetch_indescriminately(name, *args)

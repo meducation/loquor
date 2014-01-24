@@ -1,3 +1,6 @@
+# 1.1.0 / 2014-01-24
+* [FEATURE] Add respond_to support for object hashes
+
 # 1.0.0 / 2014-01-22
 * [BUGFIX] Fix issue wth mock not responding to update correctly
 
