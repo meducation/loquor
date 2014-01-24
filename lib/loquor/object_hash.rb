@@ -38,7 +38,7 @@ module Loquor
 
     def respond_to?(key)
       return true if super
-      @hash.has_key?(key)
+      @hash.has_key?(key.to_s) || @hash.has_key?(key.to_sym)
     end
 
     private

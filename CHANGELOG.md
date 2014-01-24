@@ -1,3 +1,6 @@
+# 1.1.1 / 2014-01-24
+* [BUGFIX] Respond_to should respond to the same to symbols and strings.
+
 # 1.1.0 / 2014-01-24
 * [FEATURE] Add respond_to support for object hashes
 
