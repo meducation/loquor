@@ -37,6 +37,11 @@ module Loquor
       assert_equal true, representation.respond_to?(:foo)
     end
 
+    def test_respond_to_knows_about_hash_keys
+      representation = ObjectHash.new({foo: "bar"})
+      assert_equal true, representation.respond_to?('foo')
+    end
+
     def test_hash_keys_are_accessible_via_methods
       representation = ObjectHash.new({foo: "bar"})
       assert_equal "bar", representation.foo
