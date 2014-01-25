@@ -94,7 +94,10 @@ This project is managed by the [Meducation team](http://company.meducation.net/a
 
 These individuals have come up with the ideas and written the code that made this possible:
 
-- [Jeremy Walker](http://github.com/iHID)
+- [Jeremy Walker](http://github.com/iHiD)
+- [Malcolm Landon](http://github.com/malcyL)
+- [Charles Care](http://github.com/ccare)
+- [Rob Styles](http://github.com/mmmmmrob)
 
 ## Licence
 
