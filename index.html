@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Loquor by meducation</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Loquor</h1>
+        <h2>An ActiveRecord-style restful API accessor</h2>
+        <a href="https://github.com/meducation/loquor" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>
+<a name="loquor" class="anchor" href="#loquor"><span class="octicon octicon-link"></span></a>Loquor</h1>
+
+<p><a href="https://travis-ci.org/meducation/loquor"><img src="https://travis-ci.org/meducation/loquor.png" alt="Build Status"></a>
+<a href="https://gemnasium.com/meducation/loquor"><img src="https://gemnasium.com/meducation/loquor.png?travis" alt="Dependencies"></a>
+<a href="https://codeclimate.com/github/meducation/loquor"><img src="https://codeclimate.com/github/meducation/loquor.png" alt="Code Climate"></a></p>
+
+<p>Loquor handles calls to an API via an ActiveRecord-style interface. It is currently configured for the Meducation API but could easily be changed for any other API. It allows you to access show/index/update/create actions with simple calls like <code>MediaFile.find(8)</code>, without having to worry about HTTP, JSON or anything else.</p>
+
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>Add this line to your application's Gemfile:</p>
+
+<div class="highlight highlight-ruby"><pre><span class="n">gem</span> <span class="s1">'loquor'</span>
+</pre></div>
+
+<p>And then execute:</p>
+
+<pre><code>$ bundle
+</code></pre>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>To get going, you will want to set up some configuration variables.</p>
+
+<div class="highlight highlight-ruby"><pre><span class="no">Loquor</span><span class="o">.</span><span class="n">config</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+  <span class="n">config</span><span class="o">.</span><span class="n">access_id</span>  <span class="o">=</span> <span class="s2">"Username"</span>
+  <span class="n">config</span><span class="o">.</span><span class="n">secret_key</span> <span class="o">=</span> <span class="s2">"SecretKey1929292"</span>
+  <span class="n">config</span><span class="o">.</span><span class="n">endpoint</span>   <span class="o">=</span> <span class="s2">"http://www.meducation.net"</span>
+  <span class="n">config</span><span class="o">.</span><span class="n">substitute_values</span><span class="o">[</span><span class="kp">true</span><span class="o">]</span>  <span class="o">=</span> <span class="s2">":__true__"</span>
+  <span class="n">config</span><span class="o">.</span><span class="n">substitute_values</span><span class="o">[</span><span class="kp">false</span><span class="o">]</span> <span class="o">=</span> <span class="s2">":__false__"</span>
+<span class="k">end</span>
+</pre></div>
+
+<p>If you're not using this for Meducation, then edit the <a href="https://github.com/meducation/loquor/blob/master/lib/loquor.rb#L16">mappings here</a>.</p>
+
+<p>Now you can make requests to get, create, update, destroy and list a range of objects, likein the same way you would interactive with an ActiveREcord object.</p>
+
+<p>For example, you can get search objects using where:</p>
+
+<div class="highlight highlight-ruby"><pre><span class="n">items</span> <span class="o">=</span> <span class="no">Loquor</span><span class="o">::</span><span class="no">User</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">email</span><span class="p">:</span> <span class="s2">"jeremy@meducation.net"</span><span class="p">)</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="nb">name</span><span class="p">:</span> <span class="s2">"Jeremy"</span><span class="p">)</span>
+<span class="c1"># =&gt; [{id: 2, name: "Jeremy Walker"}, {id: 3, name: "Malcolm Landon"}]</span>
+</pre></div>
+
+<p>Items responds to all the enumeration methods on Array. e.g.</p>
+
+<div class="highlight highlight-ruby"><pre><span class="n">items</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span>
+  <span class="nb">p</span> <span class="s2">"The user with id #</span><span class="si">#{</span><span class="n">user</span><span class="o">[</span><span class="s1">'id'</span><span class="o">]</span><span class="si">}</span><span class="s2"> is </span><span class="si">#{</span><span class="n">user</span><span class="o">[</span><span class="s1">'name'</span><span class="o">]</span><span class="si">}</span><span class="s2">."</span>
+<span class="k">end</span>
+</pre></div>
+
+<p>The returned objects can be accessed as hashes (using either strings or symbols), or using dot notaton. e.g.:</p>
+
+<div class="highlight highlight-ruby"><pre><span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">foo</span><span class="p">:</span> <span class="s1">'bar'</span><span class="p">)</span><span class="o">.</span><span class="n">first</span>
+<span class="n">user</span><span class="o">.</span><span class="n">name</span>
+<span class="n">user</span><span class="o">[</span><span class="s1">'name'</span><span class="o">]</span>
+<span class="n">user</span><span class="o">[</span><span class="ss">:name</span><span class="o">]</span>
+</pre></div>
+
+<p>You can use <code>select</code> (for api calls that support it), which specifies which fields to return.</p>
+
+<div class="highlight highlight-ruby"><pre><span class="n">items</span> <span class="o">=</span> <span class="no">Loquor</span><span class="o">::</span><span class="no">User</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="o">[</span><span class="ss">:id</span><span class="p">,</span> <span class="ss">:name</span><span class="o">]</span><span class="p">)</span>
+<span class="c1"># =&gt; [{id: 2, name: "Jeremy Walker"}, {id: 3, name: "Malcolm Landon"}]</span>
+</pre></div>
+
+<p>You can use <code>find</code> and <code>find_each</code> (which sends requests to the API in batches of 200)</p>
+
+<div class="highlight highlight-ruby"><pre><span class="no">Loquor</span><span class="o">::</span><span class="no">User</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># =&gt; {id: 2, name: "Jeremy Walker"}</span>
+<span class="no">Loquor</span><span class="o">::</span><span class="no">User</span><span class="o">.</span><span class="n">find_each</span> <span class="k">do</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span>
+  <span class="c1"># ...</span>
+<span class="k">end</span>
+</pre></div>
+
+<p>You can also create users using the normal ActiveRecord method:</p>
+
+<div class="highlight highlight-ruby"><pre><span class="no">Loquor</span><span class="o">::</span><span class="no">User</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="nb">name</span><span class="p">:</span> <span class="s2">"Jeremy Walker"</span><span class="p">,</span> <span class="ss">email</span><span class="p">:</span> <span class="s2">"jeremy@meducation.net"</span><span class="p">)</span> <span class="c1"># =&gt; {id: 2, name: "Jeremy Walker", email "jeremy@meducation.net"}</span>
+</pre></div>
+
+<h3>
+<a name="is-it-any-good" class="anchor" href="#is-it-any-good"><span class="octicon octicon-link"></span></a>Is it any good?</h3>
+
+<p><a href="http://news.ycombinator.com/item?id=3067434">Yes.</a></p>
+
+<h2>
+<a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h2>
+
+<p>Firstly, thank you!! <img class="emoji" title=":heart:" alt=":heart:" src="https://github.global.ssl.fastly.net/images/icons/emoji/heart.png" height="20" width="20" align="absmiddle"><img class="emoji" title=":sparkling_heart:" alt=":sparkling_heart:" src="https://github.global.ssl.fastly.net/images/icons/emoji/sparkling_heart.png" height="20" width="20" align="absmiddle"><img class="emoji" title=":heart:" alt=":heart:" src="https://github.global.ssl.fastly.net/images/icons/emoji/heart.png" height="20" width="20" align="absmiddle"></p>
+
+<p>We'd love to have you involved. Please read our <a href="https://github.com/meducation/loquor/tree/master/CONTRIBUTING.md">contributing guide</a> for information on how to get stuck in.</p>
+
+<h3>
+<a name="contributors" class="anchor" href="#contributors"><span class="octicon octicon-link"></span></a>Contributors</h3>
+
+<p>This project is managed by the <a href="http://company.meducation.net/about#team">Meducation team</a>. </p>
+
+<p>These individuals have come up with the ideas and written the code that made this possible:</p>
+
+<ul>
+<li><a href="http://github.com/iHiD">Jeremy Walker</a></li>
+<li><a href="http://github.com/malcyL">Malcolm Landon</a></li>
+<li><a href="http://github.com/ccare">Charles Care</a></li>
+<li><a href="http://github.com/mmmmmrob">Rob Styles</a></li>
+</ul><h2>
+<a name="licence" class="anchor" href="#licence"><span class="octicon octicon-link"></span></a>Licence</h2>
+
+<p>Copyright (C) 2013 New Media Education Ltd</p>
+
+<p>This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.</p>
+
+<p>This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.</p>
+
+<p>A copy of the GNU Affero General Public License is available in <a href="https://github.com/meducation/loquor/blob/master/LICENCE.md">Licence.md</a>
+along with this program.  If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/meducation/loquor/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/meducation/loquor/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/meducation/loquor"></a> is maintained by <a href="https://github.com/meducation">meducation</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
