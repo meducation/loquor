@@ -69,8 +69,12 @@ module Loquor
           value.each do |v|
             query_string << "#{key}[]=#{URI.encode(v.to_s)}"
           end
+        when Hash
+          value.each do |k,v|
+            query_string << "#{key}[#{k}]=#{URI.encode(v.to_s)}"
+          end
         else
-          raise LoquorError.new("Filter values must be strings or arrays.")
+          raise LoquorError.new("Filter values must be strings, arrays or single-depth hashes.")
         end
       end
     end
