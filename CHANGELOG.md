@@ -1,3 +1,6 @@
+# 1.2.0 / 2014-02-11
+[FEATURE] Add support for hashes as filters.
+
 # 1.1.1 / 2014-01-24
 * [BUGFIX] Respond_to should respond to the same to symbols and strings.
 

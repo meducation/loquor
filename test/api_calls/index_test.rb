@@ -74,6 +74,15 @@ module Loquor
       assert url.include?("thing[]=bar")
     end
 
+    def test_generates_url_correctly_with_hash_in_a_hash
+      criteria = {thing: {foo: 'bar', cat: 'dog'}}
+      searcher = ApiCall::Index.new(resource).where(criteria)
+      searcher.stubs(path: "foobar")
+      url = searcher.send(:generate_url)
+      assert url.include?("thing[foo]=bar")
+      assert url.include?("thing[cat]=dog")
+    end
+
     def test_uses_correct_replacement_strings_in_query
       Loquor.config.substitute_values[true] = ":__true__"
       criteria = {thing: true}
