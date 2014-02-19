@@ -1,3 +1,6 @@
+# 1.2.1 / 2014-02-19
+* [BUGFIX] Posts should return JSON, not resources
+
 # 1.2.0 / 2014-02-11
 [FEATURE] Add support for hashes as filters.
 

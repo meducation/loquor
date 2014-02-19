@@ -13,7 +13,7 @@ module Loquor
       @config.logger.info "Making POST request to: #{full_url}"
       response = JSON.parse(signed_request.execute)
       @config.logger.info "Signed request executed. Response: #{response}"
-      Resource.new(response)
+      response
     end
 
     private
