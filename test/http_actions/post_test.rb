@@ -15,12 +15,12 @@ module Loquor
       HttpAction::Post.post("foobar", {}, {})
     end
 
-    def test_post_parses_request
+    def test_post_returns_response
       output = {'foo' => 'bar'}
       json = output.to_json
-      posts = HttpAction::Post.new("", {}, deps)
-      posts.expects(signed_request: mock(execute: json))
-      assert_equal 'bar', posts.post.foo
+      post = HttpAction::Post.new("", {}, deps)
+      response = post.expects(signed_request: mock(execute: json))
+      assert_equal output, post.post
     end
 
     def test_request_is_generated_correctly
@@ -44,13 +44,6 @@ module Loquor
       posts.expects(request: request)
       ApiAuth.expects(:sign!).with(request, @access_id, @secret_key)
       posts.send(:signed_request)
-    end
-
-    def test_response_is_a_representation
-      posts = HttpAction::Post.new("", {}, deps)
-      posts.stubs(signed_request: mock(execute: {foo: 'bar'}.to_json))
-      response = posts.post
-      assert response.is_a?(Resource)
     end
   end
 end
