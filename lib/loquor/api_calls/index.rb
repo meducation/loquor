@@ -1,16 +1,22 @@
 module Loquor
   class ApiCall::Index < ApiCall
 
-    attr_reader :criteria
+    attr_reader :criteria, :clauses
 
     def initialize(klass)
       super(klass)
       @criteria = {}
+      @clauses = []
     end
 
-    def where(value)
-      value.each do |key, value|
-        @criteria[key] = value
+    def where(data)
+      case data
+      when String
+        @clauses << data
+      else
+        data.each do |key, value|
+          @criteria[key] = value
+        end
       end
       self
     end
@@ -54,6 +60,10 @@ module Loquor
       @criteria.each do |key,value|
         add_criteria(query_string, key, value)
       end
+      @clauses.each do |clause|
+        add_clause(query_string, clause)
+      end
+
       "#{klass.path}?#{query_string.join("&")}"
     end
 
@@ -77,6 +87,10 @@ module Loquor
           raise LoquorError.new("Filter values must be strings, arrays or single-depth hashes.")
         end
       end
+    end
+
+    def add_clause(query_string, clause)
+      query_string << "clauses[]=#{URI.encode(clause.to_s)}"
     end
   end
 end

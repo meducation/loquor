@@ -14,7 +14,7 @@ module Loquor
       @config.logger.info "Response: #{response}"
       response
     end
-      
+
     def execute_against_cache
       cache = @config.cache
       if cache
@@ -26,7 +26,7 @@ module Loquor
         val
       else
         execute
-      end 
+      end
     end
 
     private
