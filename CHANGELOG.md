@@ -1,3 +1,6 @@
+# 1.3.0 / 2014-02-20
+* [FEATURE] Allow for SQL fragment strings within calls to where.
+
 # 1.2.1 / 2014-02-19
 * [BUGFIX] Posts should return JSON, not resources
 

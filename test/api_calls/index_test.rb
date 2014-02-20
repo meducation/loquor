@@ -14,6 +14,12 @@ module Loquor
       assert_equal({fields: fields}, searcher.criteria)
     end
 
+    def test_where_sets_clauses
+      clause = "WHERE 1 = 1"
+      searcher = ApiCall::Index.new(resource).where(clause)
+      assert_equal([clause], searcher.clauses)
+    end
+
     def test_where_sets_criteria
       criteria = {genre: 'Animation'}
       searcher = ApiCall::Index.new(resource).where(criteria)
@@ -34,7 +40,12 @@ module Loquor
       assert_equal({genre: "Action"}, searcher.criteria)
     end
 
-    def test_where_gets_correct_url
+    def test_where_gets_correct_url_with_clauses
+      searcher = ApiCall::Index.new(resource).where("WHERE 1=1")
+      assert searcher.send(:generate_url).include? "?clauses[]=WHERE%201=1"
+    end
+
+    def test_where_gets_correct_url_with_crtieria
       searcher = ApiCall::Index.new(resource).where(name: 'Star Wars')
       assert searcher.send(:generate_url).include? "?name=Star%20Wars"
     end
