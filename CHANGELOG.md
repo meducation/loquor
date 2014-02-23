@@ -1,3 +1,6 @@
+# 1.4.0 / 2014-02-22
+* [FEATURE] Use Filum v2.
+
 # 1.3.0 / 2014-02-20
 * [FEATURE] Allow for SQL fragment strings within calls to where.
 

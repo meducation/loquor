@@ -11,7 +11,7 @@ require "loquor"
 
 class Minitest::Test
   def setup
-    Filum.config.logfile = "./log/test.log"
+    Filum.setup("./log/test.log")
     Loquor.config do |config|
       config.access_id = "Sermo"
       config.secret_key = "foobar"

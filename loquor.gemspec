@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_dependency 'filum', '~> 1.0'
+  spec.add_dependency 'filum', '~> 2.0'
   spec.add_dependency 'rest-client', '1.6.7'
   spec.add_dependency "api-auth", "1.0.3"
 
