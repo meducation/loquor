@@ -24,6 +24,26 @@ module Loquor
       show.execute
     end
 
+    def test_should_retry_for_404_if_configured
+      Loquor.config.retry_404s = true
+      Loquor.expects(:get).twice.raises(RestClient::ResourceNotFound)
+
+      show = ApiCall::Show.new(CachedResource, 42)
+      assert_raises(RestClient::ResourceNotFound) do
+        show.execute
+      end
+    end
+
+    def test_should_not_retry_for_404_if_configured
+      Loquor.config.retry_404s = false
+      Loquor.expects(:get).once.raises(RestClient::ResourceNotFound)
+
+      show = ApiCall::Show.new(CachedResource, 42)
+      assert_raises(RestClient::ResourceNotFound) do
+        show.execute
+      end
+    end
+
     def test_response_is_a_representation
       show = ApiCall::Show.new(Resource, 1)
       Loquor.stubs(get: {foo: 'bar'}.to_json)

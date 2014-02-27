@@ -12,6 +12,7 @@ require "loquor"
 class Minitest::Test
   def setup
     Filum.setup("./log/test.log")
+    Loquor.instance_variable_set :@config, nil
     Loquor.config do |config|
       config.access_id = "Sermo"
       config.secret_key = "foobar"
