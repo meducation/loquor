@@ -7,7 +7,7 @@ module Loquor
   class Configuration
 
     SETTINGS = [
-      :logger, :access_id, :secret_key, :endpoint, :substitute_values
+      :logger, :access_id, :secret_key, :endpoint, :substitute_values, :retry_404s
     ]
 
     attr_writer *SETTINGS
@@ -16,6 +16,7 @@ module Loquor
     def initialize
       self.logger = Filum.logger
       self.substitute_values = {}
+      self.retry_404s = false
     end
 
     SETTINGS.each do |setting|
@@ -27,8 +28,9 @@ module Loquor
     private
 
     def get_or_raise(setting)
-      instance_variable_get("@#{setting.to_s}") ||
-        raise(LoquorConfigurationError.new("Configuration for #{setting} is not set"))
+      val = instance_variable_get("@#{setting.to_s}")
+      raise(LoquorConfigurationError.new("Configuration for #{setting} is not set")) if val.nil?
+      val
     end
   end
 end

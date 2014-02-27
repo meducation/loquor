@@ -9,18 +9,18 @@ module Loquor
 
     class CachedResource < Resource
       self.path = '/cached'
-      self.cache = true      
+      self.cache = true
     end
 
     def test_request_correct_path
       show = ApiCall::Show.new(NormalResource, 42)
-      Loquor.expects(:get).with('/normal/42').returns({}.to_json)
+      Loquor.expects(:get).with('/normal/42', {cache: nil}).returns({}.to_json)
       show.execute
     end
-    
+
     def test_request_correct_path_for_cachable_resources
       show = ApiCall::Show.new(CachedResource, 42)
-      Loquor.expects(:get).with('/cached/42', cache=true).returns({}.to_json)
+      Loquor.expects(:get).with('/cached/42', {cache: true}).returns({}.to_json)
       show.execute
     end
 
