@@ -1,3 +1,6 @@
+# 1.5.0 / 2014-02-27
+* [FEATURE] Add retry support for 404s
+
 # 1.4.0 / 2014-02-22
 * [FEATURE] Use Filum v2.
 

@@ -9,19 +9,39 @@ module Loquor
 
     class CachedResource < Resource
       self.path = '/cached'
-      self.cache = true      
+      self.cache = true
     end
 
     def test_request_correct_path
       show = ApiCall::Show.new(NormalResource, 42)
-      Loquor.expects(:get).with('/normal/42').returns({}.to_json)
+      Loquor.expects(:get).with('/normal/42', {cache: nil}).returns({}.to_json)
       show.execute
     end
-    
+
     def test_request_correct_path_for_cachable_resources
       show = ApiCall::Show.new(CachedResource, 42)
-      Loquor.expects(:get).with('/cached/42', cache=true).returns({}.to_json)
+      Loquor.expects(:get).with('/cached/42', {cache: true}).returns({}.to_json)
       show.execute
+    end
+
+    def test_should_retry_for_404_if_configured
+      Loquor.config.retry_404s = true
+      Loquor.expects(:get).twice.raises(RestClient::ResourceNotFound)
+
+      show = ApiCall::Show.new(CachedResource, 42)
+      assert_raises(RestClient::ResourceNotFound) do
+        show.execute
+      end
+    end
+
+    def test_should_not_retry_for_404_if_configured
+      Loquor.config.retry_404s = false
+      Loquor.expects(:get).once.raises(RestClient::ResourceNotFound)
+
+      show = ApiCall::Show.new(CachedResource, 42)
+      assert_raises(RestClient::ResourceNotFound) do
+        show.execute
+      end
     end
 
     def test_response_is_a_representation

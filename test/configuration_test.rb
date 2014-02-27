@@ -37,6 +37,22 @@ module Loquor
       assert_equal endpoint, Loquor.config.endpoint
     end
 
+    def test_retry_404s_should_be_false_by_default
+      assert_equal false, Loquor.config.retry_404s
+    end
+
+    def test_retry_404s_should_set_to_false
+      retry_404s = false
+      Loquor.config.retry_404s = retry_404s
+      assert_equal retry_404s, Loquor.config.retry_404s
+    end
+
+    def test_retry_404s_should_set_to_false
+      retry_404s = true
+      Loquor.config.retry_404s = retry_404s
+      assert_equal retry_404s, Loquor.config.retry_404s
+    end
+
     def test_substitute_values
       substitute_values = {foo: 'bar'}
       Loquor.config.substitute_values = substitute_values

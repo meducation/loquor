@@ -23,7 +23,7 @@ module Loquor
 
     def test_find_should_get_correct_path_with_simple_path
       id = 8
-      Loquor.expects(:get).with("/foobar/#{id}")
+      Loquor.expects(:get).with("/foobar/#{id}", {cache: nil})
       Foobar.find(id)
     end
 

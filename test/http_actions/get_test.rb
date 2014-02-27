@@ -47,7 +47,7 @@ module Loquor
       gets.expects(execute_against_cache: json)
       assert_equal output, gets.get
     end
-    
+
     def test_cache_hit
       url = "/resource"
       full_url = "#{@endpoint}#{url}"
@@ -58,10 +58,10 @@ module Loquor
     end
 
     def test_execute_http_call_on_cache_miss
-      url = "/resource" 
+      url = "/resource"
       full_url = "#{@endpoint}#{url}"
       json_response = "{}"
-      
+
       @cache.expects(:get).with(full_url).returns(nil)
       @cache.expects(:set).with(full_url, json_response)
 
@@ -72,7 +72,7 @@ module Loquor
 
     def test_does_not_cache_when_no_cache_configured
       json_response = "{}"
-      
+
       @cache = nil
       gets = HttpAction::Get.new("", deps.merge({should_cache: true}))
       gets.expects(execute: json_response)

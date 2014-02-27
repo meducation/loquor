@@ -7,12 +7,22 @@ module Loquor
     end
 
     def execute
-      obj = if (klass.cache)
-        Loquor.get("#{klass.path}/#{@id}", cache=klass.cache)
-      else
-        Loquor.get("#{klass.path}/#{@id}")
+      begin
+        get_data
+      rescue RestClient::ResourceNotFound
+        if Loquor.config.retry_404s
+          sleep(1)
+          get_data
+        else
+          raise
+        end
       end
-      @klass.new(obj)
+    end
+
+    private
+    def get_data
+      options = {cache: klass.cache}
+      klass.new Loquor.get("#{klass.path}/#{@id}", options)
     end
   end
 end

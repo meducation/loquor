@@ -35,7 +35,7 @@ module Loquor
       HttpAction::Post.expects(:post).with(url, payload, deps)
       client.post(url, payload)
     end
-    
+
 
     def test_get_calls_gets_with_cache_flag
       url = "foobar"
@@ -43,7 +43,7 @@ module Loquor
       client = Client.new
       deps = {config: client.config, should_cache: true}
       HttpAction::Get.expects(:get).with(url, deps)
-      client.get(url, cache=true)
+      client.get(url, cache: true)
     end
   end
 end
