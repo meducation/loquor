@@ -66,6 +66,12 @@ module Loquor
       Foobar.update(id, payload)
     end
 
+    def test_destroy_should_delete
+      id = 8
+      Loquor.expects(:delete).with("/foobar/#{id}")
+      Foobar.destroy(id)
+    end
+
     def test_can_read_path
       assert_equal "/foobar", Foobar.path
     end

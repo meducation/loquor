@@ -55,5 +55,9 @@ module Loquor
     def self.update(id, payload)
       ApiCall::Update.new(self, id, payload: payload).execute
     end
+
+    def self.destroy(id)
+      ApiCall::Destroy.new(self, id).execute
+    end
   end
 end

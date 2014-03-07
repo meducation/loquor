@@ -34,6 +34,10 @@ module Loquor
     loquor.post(url, payload)
   end
 
+  def self.delete(url)
+    loquor.delete(url)
+  end
+
   private
 
   def self.loquor
