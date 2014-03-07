@@ -36,6 +36,13 @@ module Loquor
       client.post(url, payload)
     end
 
+    def test_delete_calls_deletes
+      url = "foobar"
+      client = Client.new
+      deps = {config: client.config}
+      HttpAction::Delete.expects(:delete).with(url, deps)
+      client.delete(url)
+    end
 
     def test_get_calls_gets_with_cache_flag
       url = "foobar"

@@ -21,5 +21,10 @@ module Loquor
       deps = {config: @config}
       HttpAction::Post.post(url, payload, deps)
     end
+
+    def delete(url)
+      deps = {config: @config}
+      HttpAction::Delete.delete(url, deps)
+    end
   end
 end
