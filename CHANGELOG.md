@@ -1,3 +1,6 @@
+# 1.6.0 / 2014-03-07
+* [FEATURE] Add support for date, time and datetime in filters.
+
 # 1.5.0 / 2014-02-27
 * [FEATURE] Add retry support for 404s
 

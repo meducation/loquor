@@ -73,7 +73,7 @@ module Loquor
         query_string << "#{key}=#{URI.encode(substitute_value)}"
       else
         case value
-        when String, Symbol, Numeric
+        when String, Symbol, Numeric, Date, Time, DateTime
           query_string << "#{key}=#{URI.encode(value.to_s)}"
         when Array
           value.each do |v|
@@ -84,7 +84,7 @@ module Loquor
             query_string << "#{key}[#{k}]=#{URI.encode(v.to_s)}"
           end
         else
-          raise LoquorError.new("Filter values must be strings, arrays or single-depth hashes.")
+          raise LoquorError.new("Filter values must be strings, arrays, date, time, datetime or single-depth hashes.")
         end
       end
     end

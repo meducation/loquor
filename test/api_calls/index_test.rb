@@ -55,6 +55,21 @@ module Loquor
       assert searcher.send(:generate_url).include? "?name=star"
     end
 
+    def test_where_gets_correct_url_with_date
+      searcher = ApiCall::Index.new(resource).where(name: Date.new(1969,5,10))
+      assert searcher.send(:generate_url).include? "?name=1969-05-10"
+    end
+
+    def test_where_gets_correct_url_with_time
+      searcher = ApiCall::Index.new(resource).where(name: Time.new(1969,5,10,13,10))
+      assert searcher.send(:generate_url).include? "?name=1969-05-10%2013:10:00"
+    end
+
+    def test_where_gets_correct_url_with_date_time
+      searcher = ApiCall::Index.new(resource).where(name: DateTime.new(1969,5,10,13,10))
+      assert searcher.send(:generate_url).include? "?name=1969-05-10T13:10:00"
+    end
+
     def test_where_gets_correct_url_with_number
       searcher = ApiCall::Index.new(resource).where(name: 1)
       assert searcher.send(:generate_url).include? "?name=1"
