@@ -1,3 +1,6 @@
+# 1.7.0 / 2014-03-13
+* [FEATURE] Add support for per, page and limit
+
 # 1.6.0 / 2014-03-07
 * [FEATURE] Add support for date, time and datetime in filters.
 * [FEATURE] Add support deleting entities.

@@ -36,16 +36,10 @@ module Loquor
       ApiCall::Show.new(self, id).execute
     end
 
-    def self.find_each(&block)
-      ApiCall::Index.new(self).find_each(&block)
-    end
-
-    def self.select(*args)
-      ApiCall::Index.new(self).select(*args)
-    end
-
-    def self.where(*args)
-      ApiCall::Index.new(self).where(*args)
+    %w{where per page order select find_each}.each do |meth|
+      self.class.send :define_method, meth do |*args, &block|
+        ApiCall::Index.new(self).send(meth, *args, &block)
+      end
     end
 
     def self.create(payload)
