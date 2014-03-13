@@ -14,6 +14,30 @@ module Loquor
       assert_equal({fields: fields}, searcher.criteria)
     end
 
+    def test_order_sets_order
+      order = :random
+      searcher = ApiCall::Index.new(resource).order(order)
+      assert_equal(order, searcher.instance_variable_get("@order"))
+    end
+
+    def test_limit_sets_per
+      per = 892
+      searcher = ApiCall::Index.new(resource).limit(per)
+      assert_equal(per, searcher.instance_variable_get("@per"))
+    end
+
+    def test_per_sets_per
+      per = 542
+      searcher = ApiCall::Index.new(resource).per(per)
+      assert_equal(per, searcher.instance_variable_get("@per"))
+    end
+
+    def test_page_set_page
+      page = 542
+      searcher = ApiCall::Index.new(resource).page(page)
+      assert_equal(page, searcher.instance_variable_get("@page"))
+    end
+
     def test_where_sets_clauses
       clause = "WHERE 1 = 1"
       searcher = ApiCall::Index.new(resource).where(clause)
@@ -187,6 +211,30 @@ module Loquor
       assert results.is_a?(Array)
       assert results[0].is_a?(Resource)
       assert results[1].is_a?(Resource)
+    end
+
+    def test_generates_url_correctly_with_order
+      order = :random
+      searcher = ApiCall::Index.new(resource).order(order)
+      searcher.stubs(path: "foobar")
+      url = searcher.send(:generate_url)
+      assert url.include?("order=#{order}")
+    end
+
+    def test_generates_url_correctly_with_per
+      per = 123
+      searcher = ApiCall::Index.new(resource).per(per)
+      searcher.stubs(path: "foobar")
+      url = searcher.send(:generate_url)
+      assert url.include?("per=#{per}")
+    end
+
+    def test_generates_url_correctly_with_page
+      page = 45
+      searcher = ApiCall::Index.new(resource).page(page)
+      searcher.stubs(path: "foobar")
+      url = searcher.send(:generate_url)
+      assert url.include?("page=#{page}")
     end
   end
 end

@@ -27,6 +27,22 @@ module Loquor
       self
     end
 
+    def order(value)
+      @order = value
+      self
+    end
+
+    def per(value)
+      @per = value
+      self
+    end
+    alias_method :limit, :per
+
+    def page(value)
+      @page = value
+      self
+    end
+
     # Proxy everything to the results so that this this class
     # transparently acts as an Array.
     def method_missing(name, *args, &block)
@@ -63,6 +79,10 @@ module Loquor
       @clauses.each do |clause|
         add_clause(query_string, clause)
       end
+
+      query_string << "per=#{@per}" if @per
+      query_string << "page=#{@page}" if @page
+      query_string << "order=#{@order}" if @order
 
       "#{klass.path}?#{query_string.join("&")}"
     end

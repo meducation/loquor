@@ -53,6 +53,14 @@ module Loquor
       Foobar.where(email: email).to_a
     end
 
+    %w{where per page order select find_each}.each do |meth|
+      define_method "test_#{meth}_should_proxy" do
+        args = [mock]
+        ApiCall::Index.any_instance.expects(meth).with(*args)
+        Foobar.send(meth, *args)
+      end
+    end
+
     def test_create_should_put_correct_params
       payload = {bar: 'foo'}
       Loquor.expects(:post).with("/foobar", payload: payload)
