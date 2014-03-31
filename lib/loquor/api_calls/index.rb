@@ -96,8 +96,12 @@ module Loquor
         when String, Symbol, Numeric, Date, Time, DateTime
           query_string << "#{key}=#{URI.encode(value.to_s)}"
         when Array
-          value.each do |v|
-            query_string << "#{key}[]=#{URI.encode(v.to_s)}"
+          if value.empty?
+              query_string << "#{key}[]="
+          else
+            value.each do |v|
+              query_string << "#{key}[]=#{URI.encode(v.to_s)}"
+            end
           end
         when Hash
           value.each do |k,v|
