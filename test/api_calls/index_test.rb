@@ -50,6 +50,12 @@ module Loquor
       assert_equal({genre: 'Animation'}, searcher.criteria)
     end
 
+    def test_where_sets_empty_hash_value_criteria
+      criteria = {genre: []}
+      searcher = ApiCall::Index.new(resource).where(criteria)
+      assert_equal({genre: []}, searcher.criteria)
+    end
+
     def test_where_merges_criteria
       criteria1 = {genre: 'Animation'}
       criteria2 = {foobar: 'Cat'}
@@ -69,7 +75,12 @@ module Loquor
       assert searcher.send(:generate_url).include? "?clauses[]=WHERE%201=1"
     end
 
-    def test_where_gets_correct_url_with_crtieria
+    def test_where_gets_correct_url_with_empty_criteria_hash_value
+      searcher = ApiCall::Index.new(resource).where(ids: [])
+      assert searcher.send(:generate_url).include? "?ids[]="
+    end
+
+    def test_where_gets_correct_url_with_criteria
       searcher = ApiCall::Index.new(resource).where(name: 'Star Wars')
       assert searcher.send(:generate_url).include? "?name=Star%20Wars"
     end

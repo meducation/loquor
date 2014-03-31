@@ -1,3 +1,6 @@
+# 1.8.0 / 2014-03-31
+* [FEATURE] Allow empty hash values in index criteria
+
 # 1.7.0 / 2014-03-13
 * [FEATURE] Add support for per, page and limit
 
