@@ -7,6 +7,7 @@ module Loquor
     end
 
     def execute
+      return nil unless @id
       begin
         get_data
       rescue RestClient::ResourceNotFound
