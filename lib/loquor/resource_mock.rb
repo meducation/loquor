@@ -34,6 +34,10 @@ module Loquor
       self.new(attributes.merge(overrides))
     end
 
+    def custom_sample(attrs = {})
+      self.new(attrs)
+    end
+
     def find(id)
       self.new(attributes.merge(id: id))
     end
