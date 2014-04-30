@@ -1,3 +1,6 @@
+# 1.9.0 / 2014-03-31
+* [FEATURE] Don't call back to SPI for find unless there is an id
+
 # 1.8.0 / 2014-03-31
 * [FEATURE] Allow empty hash values in index criteria
 

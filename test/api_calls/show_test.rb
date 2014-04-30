@@ -12,6 +12,12 @@ module Loquor
       self.cache = true
     end
 
+    def test_request_should_not_send_for_nil_id
+      show = ApiCall::Show.new(NormalResource, nil)
+      Loquor.expects(:get).never
+      show.execute
+    end
+
     def test_request_correct_path
       show = ApiCall::Show.new(NormalResource, 42)
       Loquor.expects(:get).with('/normal/42', {cache: nil}).returns({}.to_json)
