@@ -1,4 +1,10 @@
-# 1.9.0 / 2014-03-31
+# 1.11.0 / 2014-05-06
+* [FEATURE] Set user-agent to same value as access_id 
+
+# 1.10.0 / 2014-04-30
+* [FEATURE] Allow creation of custom_samples
+
+# 1.9.0 / 2014-04-30
 * [FEATURE] Don't call back to SPI for find unless there is an id
 
 # 1.8.0 / 2014-03-31
