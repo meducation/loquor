@@ -7,8 +7,11 @@ module Loquor
     end
 
     def signed_request
+      req = request
+      @config.logger.info "Setting user-agent."
+      req.headers['User-Agent'] = @config.access_id
       @config.logger.info "Signing request."
-      ApiAuth.sign!(request, @config.access_id, @config.secret_key)
+      ApiAuth.sign!(req, @config.access_id, @config.secret_key)
     end
 
     def execute

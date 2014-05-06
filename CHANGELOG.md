@@ -1,3 +1,6 @@
+# 1.11.0 / 2014-05-06
+* [FEATURE] Set user-agent to same value as access_id 
+
 # 1.10.0 / 2014-04-30
 * [FEATURE] Allow creation of custom_samples
 
