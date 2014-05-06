@@ -7,7 +7,7 @@ module Loquor
   class Configuration
 
     SETTINGS = [
-      :logger, :access_id, :secret_key, :endpoint, :substitute_values, :retry_404s
+      :logger, :access_id, :secret_key, :endpoint, :substitute_values, :retry_404s, :retry_503s, :max_retries, :retry_backoff
     ]
 
     attr_writer *SETTINGS
@@ -17,6 +17,9 @@ module Loquor
       self.logger = Filum.logger
       self.substitute_values = {}
       self.retry_404s = false
+      self.retry_503s = true
+      self.max_retries = 5
+      self.retry_backoff = 2
     end
 
     SETTINGS.each do |setting|
