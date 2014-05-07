@@ -1,3 +1,6 @@
+# 1.12.0 / 2014-05-06
+* [FEATURE] Retry support for HTTP 503 status
+
 # 1.11.0 / 2014-05-06
 * [FEATURE] Set user-agent to same value as access_id 
 
