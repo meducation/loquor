@@ -1,3 +1,6 @@
+# 1.13.0 / 2014-05-19
+* [BUGFIX] Ensure proper encoding of query params
+
 # 1.12.0 / 2014-05-06
 * [FEATURE] Retry support for HTTP 503 status
 

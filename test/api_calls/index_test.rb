@@ -82,12 +82,17 @@ module Loquor
 
     def test_where_gets_correct_url_with_criteria
       searcher = ApiCall::Index.new(resource).where(name: 'Star Wars')
-      assert searcher.send(:generate_url).include? "?name=Star%20Wars"
+      assert searcher.send(:generate_url).include? "?name=Star+Wars"
     end
 
     def test_where_gets_correct_url_with_symbol
       searcher = ApiCall::Index.new(resource).where(name: :star)
       assert searcher.send(:generate_url).include? "?name=star"
+    end
+
+    def test_generated_url_encodes_correctly
+      searcher = ApiCall::Index.new(resource).where(url: "http://www.example.com/resource.html?foo=bar&_foo=baz&content=Stuff%3A+that%2Fshould+%28be+escaped%29")
+      assert searcher.send(:generate_url).include? "?url=http%3A%2F%2Fwww.example.com%2Fresource.html%3Ffoo%3Dbar%26_foo%3Dbaz%26content%3DStuff%253A%2Bthat%252Fshould%2B%2528be%2Bescaped%2529"
     end
 
     def test_where_gets_correct_url_with_date
@@ -97,12 +102,12 @@ module Loquor
 
     def test_where_gets_correct_url_with_time
       searcher = ApiCall::Index.new(resource).where(name: Time.new(1969,5,10,13,10))
-      assert searcher.send(:generate_url).include? "?name=1969-05-10%2013:10:00"
+      assert searcher.send(:generate_url).include? "?name=1969-05-10+13%3A10%3A00"
     end
 
     def test_where_gets_correct_url_with_date_time
       searcher = ApiCall::Index.new(resource).where(name: DateTime.new(1969,5,10,13,10))
-      assert searcher.send(:generate_url).include? "?name=1969-05-10T13:10:00"
+      assert searcher.send(:generate_url).include? "?name=1969-05-10T13%3A10%3A00%2B00%3A00"
     end
 
     def test_where_gets_correct_url_with_number
@@ -150,7 +155,7 @@ module Loquor
       searcher = ApiCall::Index.new(resource).where(criteria)
       searcher.stubs(path: "foobar")
       url = searcher.send(:generate_url)
-      assert url.include?("thing=:__true__")
+      assert url.include?("thing=%3A__true__")
     end
 
     def test_that_iterating_calls_results
