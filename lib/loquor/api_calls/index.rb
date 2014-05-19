@@ -90,22 +90,22 @@ module Loquor
     def add_criteria(query_string, key, value)
       substitute_value = Loquor.config.substitute_values[value]
       if !substitute_value.nil?
-        query_string << "#{key}=#{URI.encode(substitute_value)}"
+        query_string << "#{key}=#{URI.encode_www_form_component(substitute_value)}"
       else
         case value
         when String, Symbol, Numeric, Date, Time, DateTime
-          query_string << "#{key}=#{URI.encode(value.to_s)}"
+          query_string << "#{key}=#{URI.encode_www_form_component(value.to_s)}"
         when Array
           if value.empty?
               query_string << "#{key}[]="
           else
             value.each do |v|
-              query_string << "#{key}[]=#{URI.encode(v.to_s)}"
+              query_string << "#{key}[]=#{URI.encode_www_form_component(v.to_s)}"
             end
           end
         when Hash
           value.each do |k,v|
-            query_string << "#{key}[#{k}]=#{URI.encode(v.to_s)}"
+            query_string << "#{key}[#{k}]=#{URI.encode_www_form_component(v.to_s)}"
           end
         else
           raise LoquorError.new("Filter values must be strings, arrays, date, time, datetime or single-depth hashes.")
